@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Technician guide · SolarCORE Docs</title>
+<meta name="description" content="How technicians add and update installations and photos, use the installation list, import and export, and handle inquiries and client reports.">
+<link rel="icon" type="image/png" href="assets/img/logo.png">
+<link rel="stylesheet" href="assets/css/docs.css">
+<script>try{var t=localStorage.getItem("sc-docs-theme");if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+</head>
+<body>
+<header class="topbar">
+  <button type="button" class="icon-btn menu-btn" id="menu-btn" aria-label="Menu" aria-expanded="false" aria-controls="sidebar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+  <a class="brand" href="index.html"><img src="assets/img/logo.png" alt="SolarCORE"><span class="brand__tag">Documentation</span></a>
+  <span class="topbar__spacer"></span>
+  <button type="button" class="icon-btn" id="theme-btn" aria-label="Switch light or dark mode" title="Light / dark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+</header>
+<div class="layout">
+  <nav class="sidebar" id="sidebar" aria-label="Documentation pages"></nav>
+  <main class="content">
+    <article class="doc">
+<p class="eyebrow">User guide</p>
+<h1>Technician guide</h1>
+<p class="lead">Technicians keep the installation records up to date and handle what comes in from clients and visitors. Administrators can do everything on this page too.</p>
+
+<h2 id="navigation">Finding your way around</h2>
+<table>
+  <thead><tr><th>Tab</th><th>What is there</th></tr></thead>
+  <tbody>
+    <tr><td><span class="ui">Dashboard</span></td><td>The map of all installations, with a summary panel. See <a href="map.html">The map</a>.</td></tr>
+    <tr><td><span class="ui">Installations</span></td><td>The list: search, filter, sort, add, edit, import and export.</td></tr>
+    <tr><td><span class="ui">Analytics</span></td><td>Charts and totals. See <a href="analytics.html">Analytics</a>.</td></tr>
+    <tr><td><span class="ui">Client Desk ▾</span></td><td><span class="ui">Inquiries</span> and <span class="ui">Client Reports</span>. A red number shows how many are waiting.</td></tr>
+    <tr><td>Bell</td><td>Notifications: new client reports and follow-ups, and new inquiries.</td></tr>
+  </tbody>
+</table>
+<p>Signing in works the same for everyone: password, then a 6-digit code from your email. See <a href="guide-administrator.html#signing-in">Signing in</a>.</p>
+
+<h2 id="installation-list">The installation list</h2>
+<p>Open <span class="ui">Installations</span>. Everything below happens instantly, without reloading the page:</p>
+<ul>
+  <li><strong>Search</strong> by name, owner or address in <span class="ui">Search installations…</span>.</li>
+  <li><strong>Filter</strong> by type (<span class="ui">All Types</span>), status (<span class="ui">All Statuses</span>) and installation date range.</li>
+  <li><strong>Sort</strong> by newest or oldest, location A–Z or Z–A, or capacity.</li>
+</ul>
+<p>The line above the table says <em>Showing N of M installations</em>, so you always know whether a filter is hiding records. The row icons edit an installation (and, for administrators, delete it).</p>
+
+<h2 id="add-an-installation">Add an installation</h2>
+<p>Click <span class="ui">+ Add Installation</span> on the list, or click an empty spot on the dashboard map to start with that point already chosen.</p>
+<ol class="steps">
+  <li><strong>Set the location</strong>
+    Click the map on the form to drop the pin, and drag it to adjust. Latitude and longitude fill in, and so do the address, barangay, municipality and province, looked up from the point. Anything you type in those fields yourself is kept. You can also type the coordinates directly.</li>
+  <li><strong>Choose the owner</strong>
+    In <span class="ui">Owner</span>, pick the client's account if they have one. That lets them see the installation and report problems. Otherwise choose <span class="ui">Owner has no account yet…</span> and type their name; you can link the account later.</li>
+  <li><strong>Fill in the details</strong>
+    <span class="ui">Installation Name</span> (e.g. "Dela Cruz Residence"), type, capacity in kWp, installation date, status and any notes. Fields marked * are required.</li>
+  <li><strong>Add photos</strong> (optional)
+    JPG, PNG or WebP, up to 5 MB each.</li>
+  <li><strong>Save</strong>
+    The installation appears in the list and on the map at once. If something is wrong, the form says what and keeps everything you typed.</li>
+</ol>
+
+<h3>Types and statuses</h3>
+<table>
+  <thead><tr><th>Type</th><th>Meaning</th></tr></thead>
+  <tbody>
+    <tr><td>On-grid</td><td>Connected to the utility grid; no batteries.</td></tr>
+    <tr><td>Off-grid</td><td>Stand-alone, with batteries; not connected to the grid.</td></tr>
+    <tr><td>Hybrid</td><td>Connected to the grid and has batteries.</td></tr>
+  </tbody>
+</table>
+<table>
+  <thead><tr><th>Status</th><th>Use it when</th><th>Counts in installed capacity?</th></tr></thead>
+  <tbody>
+    <tr><td>Awarded</td><td>The contract is won; nothing is built yet.</td><td>No</td></tr>
+    <tr><td>Under construction</td><td>Work has started.</td><td>No</td></tr>
+    <tr><td>Operational</td><td>Built and producing power.</td><td>Yes</td></tr>
+    <tr><td>Under maintenance</td><td>Being repaired or serviced. Set automatically while a maintenance report is in progress.</td><td>Yes</td></tr>
+    <tr><td>Inactive</td><td>Built but switched off.</td><td>Yes</td></tr>
+    <tr><td>Decommissioned</td><td>Removed or retired.</td><td>Yes</td></tr>
+  </tbody>
+</table>
+
+<h3>Coordinates</h3>
+<ul>
+  <li>Latitude comes first, then longitude, in decimal degrees: <code>16.6870, 121.5480</code>. The map's pin is the easiest way to get them right.</li>
+  <li>From Google Maps: right-click the spot and click the coordinates to copy them.</li>
+  <li>Points outside the configured map area are refused.</li>
+</ul>
+
+<h2 id="edit-an-installation">Edit an installation</h2>
+<p>Use the edit icon on the list, or <span class="ui">Edit details</span> on the installation's card on the map. Change what you need and save. Every change is recorded in the audit trail with the old and new values. You can add or remove photos here too.</p>
+<div class="callout">
+  <span class="callout__title">Deleting</span>
+  Only administrators can delete an installation. If a site is retired, set its status to <em>Decommissioned</em> instead; it stays in the history.
+</div>
+
+<h2 id="import-and-export">Import and export</h2>
+<p>Bring in many installations from a spreadsheet, or take the list out as CSV, GeoJSON or PDF. See <a href="import-export.html">Import and export</a>.</p>
+
+<h2 id="client-desk">Client Desk: inquiries and reports</h2>
+<p>For administrators this menu is called <span class="ui">Administration</span>; it has the same two pages.</p>
+
+<h3>Inquiries</h3>
+<p>Messages sent through <span class="ui">Contact Us</span> on the public home page, from people who are not signed in. Each one is also emailed to the company inbox.</p>
+<ol class="steps">
+  <li><strong>Open <span class="ui">Inquiries</span></strong> and click an inquiry to see the message and contact details.</li>
+  <li><strong>Call or email them back.</strong></li>
+  <li><strong>Update the status</strong>: <em>New</em> → <em>Contacted</em> → <em>Closed</em>.</li>
+</ol>
+
+<h3>Client reports</h3>
+<p>Problems clients report on their own installations: the system not producing power, physical damage, a maintenance or cleaning request, monitoring not updating, or something else.</p>
+<ol class="steps">
+  <li><strong>Open <span class="ui">Client Reports</span></strong> and click a report. You see what the client said, who reported it, the installation, and the full history.</li>
+  <li><strong>Add an update</strong>: choose a status (<em>Open</em>, <em>In progress</em>, <em>Resolved</em>) and write a note, e.g. "Technician visiting on Thursday morning to check the inverter." Then click <span class="ui">Add update</span>.</li>
+  <li><strong>Internal notes</strong>: tick <em>Internal note</em> for something only staff should see. The client is notified of status changes and of notes that are not internal.</li>
+</ol>
+<div class="callout callout--tip">
+  <span class="callout__title">Maintenance hold</span>
+  When a <em>maintenance</em> report moves to <em>In progress</em>, an operational or inactive installation changes to <em>Under maintenance</em> automatically. When the report is resolved, the previous status comes back, unless another maintenance report on the same site is still in progress, or someone changed the status by hand in the meantime.
+</div>
+
+    </article>
+    <nav class="pager" id="pager" aria-label="Previous and next page"></nav>
+    <footer class="page-foot">SolarCORE &middot; College of Information Technology, University of La Salette, Inc. &middot; In partnership with ABS Global Management, Inc.</footer>
+  </main>
+  <aside class="toc" id="toc" aria-label="On this page"></aside>
+</div>
+<script src="assets/js/docs.js"></script>
+</body>
+</html>

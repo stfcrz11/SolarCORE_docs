@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Administrator guide · SolarCORE Docs</title>
+<meta name="description" content="How administrators sign in, manage user accounts, approve clients, review the audit trail and keep SolarCORE running.">
+<link rel="icon" type="image/png" href="assets/img/logo.png">
+<link rel="stylesheet" href="assets/css/docs.css">
+<script>try{var t=localStorage.getItem("sc-docs-theme");if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+</head>
+<body>
+<header class="topbar">
+  <button type="button" class="icon-btn menu-btn" id="menu-btn" aria-label="Menu" aria-expanded="false" aria-controls="sidebar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+  <a class="brand" href="index.html"><img src="assets/img/logo.png" alt="SolarCORE"><span class="brand__tag">Documentation</span></a>
+  <span class="topbar__spacer"></span>
+  <button type="button" class="icon-btn" id="theme-btn" aria-label="Switch light or dark mode" title="Light / dark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+</header>
+<div class="layout">
+  <nav class="sidebar" id="sidebar" aria-label="Documentation pages"></nav>
+  <main class="content">
+    <article class="doc">
+<p class="eyebrow">User guide</p>
+<h1>Administrator guide</h1>
+<p class="lead">Administrators can do everything a technician can, plus manage user accounts, delete installations and review the audit trail. Read the <a href="guide-technician.html">Technician guide</a> for working with installations; this page covers what is specific to administrators.</p>
+
+<h2 id="signing-in">Signing in</h2>
+<ol class="steps">
+  <li><strong>Open SolarCORE and click <span class="ui">Log in</span></strong>
+    Enter your username and password, or use <span class="ui">Continue with Google</span> if it is set up.</li>
+  <li><strong>Enter the code</strong>
+    A 6-digit code is emailed to your account. It is valid for 10 minutes and allows 5 tries. If it does not arrive, request a new one after 60 seconds.</li>
+  <li><strong>You are in</strong>
+    The dashboard opens.</li>
+</ol>
+<p>The first time the built-in <code>admin</code> account signs in, SolarCORE asks for a new password and a real email address before anything else. See <a href="installation.html#8-first-sign-in">First sign-in</a>.</p>
+<div class="callout">
+  <span class="callout__title">Staying signed in</span>
+  After 30 minutes without activity you are signed out. A warning appears shortly before; click <span class="ui">Stay signed in</span> to continue. To sign out yourself, open the menu under your name (top right) and choose <span class="ui">Log Out</span>.
+</div>
+
+<h2 id="navigation">Finding your way around</h2>
+<table>
+  <thead><tr><th>Tab</th><th>What is there</th></tr></thead>
+  <tbody>
+    <tr><td><span class="ui">Dashboard</span></td><td>The map of every installation, with a summary panel. See <a href="map.html">The map</a>.</td></tr>
+    <tr><td><span class="ui">Installations</span></td><td>The list of all installations: search, filter, add, edit, delete, import and export.</td></tr>
+    <tr><td><span class="ui">Analytics</span></td><td>Charts and totals, with PDF export.</td></tr>
+    <tr><td><span class="ui">Administration ▾</span></td><td><span class="ui">Users</span>, <span class="ui">Audit Trail</span>, <span class="ui">Inquiries</span> and <span class="ui">Client Reports</span>. A red number shows new inquiries and open reports waiting.</td></tr>
+    <tr><td>Bell</td><td>Notifications: new registrations, client reports, inquiries, and installations added, changed or deleted by others.</td></tr>
+    <tr><td>Your name</td><td>The account menu, with <span class="ui">Log Out</span>.</td></tr>
+  </tbody>
+</table>
+<p>On a tablet or phone, the tabs move into the menu button (☰) at the top left.</p>
+
+<h2 id="users">Users</h2>
+<p>Open <span class="ui">Administration</span> → <span class="ui">Users</span>. The page has five sections, listed down the left side:</p>
+<table>
+  <thead><tr><th>Section</th><th>Holds</th></tr></thead>
+  <tbody>
+    <tr><td><span class="ui">Admins and Technicians</span></td><td>Staff accounts. Create new staff accounts here.</td></tr>
+    <tr><td><span class="ui">Clients</span></td><td>Approved client accounts, with the installations each one owns.</td></tr>
+    <tr><td><span class="ui">Pending Approval</span></td><td>People who registered themselves and are waiting for a decision.</td></tr>
+    <tr><td><span class="ui">Declined</span></td><td>Registrations you declined. They can still be approved later.</td></tr>
+    <tr><td><span class="ui">Archived</span></td><td>Deactivated accounts put away, both staff and clients.</td></tr>
+  </tbody>
+</table>
+
+<h3>Create a staff account</h3>
+<ol class="steps">
+  <li><strong>Open <span class="ui">Admins and Technicians</span></strong> and start a new staff account.</li>
+  <li><strong>Fill in</strong> first and last name, username, email, a temporary password (at least 8 characters) and the role: Administrator or Technician.</li>
+  <li><strong>Click <span class="ui">Create account</span></strong>. Give the person their username and temporary password in person or by phone, not in a group chat.</li>
+</ol>
+
+<h3>Approve or decline a client</h3>
+<p>Clients sign up with <span class="ui">Create account</span> on the sign-in page. Their account cannot sign in until you approve it.</p>
+<ol class="steps">
+  <li><strong>Open <span class="ui">Pending Approval</span></strong>. The bell also tells you about new registrations.</li>
+  <li><strong>Approve</strong> a real customer, or <strong>decline</strong> one you do not recognise. Declined registrations can be approved later with <span class="ui">Approve after all</span>, or deleted.</li>
+  <li><strong>Link their installations.</strong> Edit each installation they own and choose their account as the <span class="ui">Owner</span>. They then see it under <em>My Installations</em> and can report problems.</li>
+</ol>
+
+<h3>Edit, deactivate, archive</h3>
+<ul>
+  <li><strong>Edit</strong> changes name, username, email, role or password. Leave the password blank to keep the current one.</li>
+  <li><strong>Deactivate</strong> stops an account from signing in, immediately. <strong>Reactivate</strong> restores it.</li>
+  <li><strong>Archive</strong> moves a <em>deactivated</em> account to the Archived section, to keep the lists short. Its records stay; <strong>Unarchive</strong> brings it back.</li>
+  <li><strong>Delete</strong> is only possible for staff accounts that never created or changed a record. Otherwise deactivate them, which keeps the audit trail intact. Client accounts cannot be deleted, only deactivated.</li>
+</ul>
+
+<h3>Safeguards</h3>
+<p>To keep at least one way in, SolarCORE refuses to:</p>
+<ul>
+  <li>change your own role or status, or archive or delete your own account;</li>
+  <li>demote, deactivate or delete the last active administrator;</li>
+  <li>change a client account's role (clients keep the Client role);</li>
+  <li>archive an account that is still active.</li>
+</ul>
+
+<h2 id="deleting-installations">Deleting installations</h2>
+<p>Only administrators can delete an installation. In <span class="ui">Installations</span>, use the delete icon on its row and confirm. The record disappears from the list, the map, analytics and exports, and the deletion is recorded in the audit trail.</p>
+
+<h2 id="audit-trail">Audit Trail</h2>
+<p>Open <span class="ui">Administration</span> → <span class="ui">Audit Trail</span>. It records who did what and when:</p>
+<ul>
+  <li>sign-ins, and blocked or failed sign-ins;</li>
+  <li>installations added, changed (with the before and after values) and deleted;</li>
+  <li>user accounts created, changed, approved, declined, deactivated and archived;</li>
+  <li>imports and exports (CSV, GeoJSON and PDF);</li>
+  <li>client report and inquiry updates.</li>
+</ul>
+<p>Filter by area (module) and by user. The list shows 50 entries per page, newest first.</p>
+<p>Entries are kept for <strong>two years</strong>. Older entries are removed by the purge script your server administrator runs (see <a href="deployment.html#audit-retention">Deployment</a>), and the purge records itself in the trail.</p>
+
+<h2 id="inquiries-and-reports">Inquiries and client reports</h2>
+<p>Administrators handle these exactly like technicians. See <a href="guide-technician.html#client-desk">Technician guide → Client Desk</a>.</p>
+
+<h2 id="admin-checklist">Regular tasks</h2>
+<table>
+  <thead><tr><th>How often</th><th>Task</th></tr></thead>
+  <tbody>
+    <tr><td>Daily</td><td>Check <span class="ui">Pending Approval</span>, new <span class="ui">Inquiries</span> and open <span class="ui">Client Reports</span>.</td></tr>
+    <tr><td>Daily</td><td>Make sure the server's backup ran (<a href="deployment.html#backups">Backups</a>).</td></tr>
+    <tr><td>When someone leaves</td><td>Deactivate their account the same day.</td></tr>
+    <tr><td>Monthly</td><td>Look through the audit trail for anything unexpected, such as large exports or deletions.</td></tr>
+  </tbody>
+</table>
+
+    </article>
+    <nav class="pager" id="pager" aria-label="Previous and next page"></nav>
+    <footer class="page-foot">SolarCORE &middot; College of Information Technology, University of La Salette, Inc. &middot; In partnership with ABS Global Management, Inc.</footer>
+  </main>
+  <aside class="toc" id="toc" aria-label="On this page"></aside>
+</div>
+<script src="assets/js/docs.js"></script>
+</body>
+</html>

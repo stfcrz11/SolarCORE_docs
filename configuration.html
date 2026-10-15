@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Configuration · SolarCORE Docs</title>
+<meta name="description" content="Every SolarCORE setting in the .env file explained: address, database, email, AI assistant, Google sign-in, photos and the map area.">
+<link rel="icon" type="image/png" href="assets/img/logo.png">
+<link rel="stylesheet" href="assets/css/docs.css">
+<script>try{var t=localStorage.getItem("sc-docs-theme");if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+</head>
+<body>
+<header class="topbar">
+  <button type="button" class="icon-btn menu-btn" id="menu-btn" aria-label="Menu" aria-expanded="false" aria-controls="sidebar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+  <a class="brand" href="index.html"><img src="assets/img/logo.png" alt="SolarCORE"><span class="brand__tag">Documentation</span></a>
+  <span class="topbar__spacer"></span>
+  <button type="button" class="icon-btn" id="theme-btn" aria-label="Switch light or dark mode" title="Light / dark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+</header>
+<div class="layout">
+  <nav class="sidebar" id="sidebar" aria-label="Documentation pages"></nav>
+  <main class="content">
+    <article class="doc">
+<p class="eyebrow">Getting started</p>
+<h1>Configuration</h1>
+<p class="lead">SolarCORE reads its settings from a file named <code>.env</code> in the project folder. Start from the example with <code>copy .env.example .env</code>. On a hosting platform such as Railway, enter the same names as the platform's environment variables instead; they take priority over the file.</p>
+
+<div class="callout callout--warn">
+  <span class="callout__title">Secrets stay out of Git</span>
+  <code>.env</code> contains passwords and API keys. It is ignored by Git and must never be shared. The examples on this page show empty values on purpose.
+</div>
+
+<h2 id="application">Application</h2>
+<table>
+  <thead><tr><th>Setting</th><th>What it does</th><th>Example</th></tr></thead>
+  <tbody>
+    <tr><td><code>APP_NAME</code></td><td>The application's name.</td><td><code>SolarCORE</code></td></tr>
+    <tr><td><code>APP_ENV</code></td><td><code>development</code> on your own computer, <code>production</code> on a real server. In development, a login code that cannot be emailed is shown on the page; production refuses the sign-in instead.</td><td><code>development</code></td></tr>
+  </tbody>
+</table>
+
+<h2 id="where-the-app-is-served">Where the app is served</h2>
+<table>
+  <thead><tr><th>Setting</th><th>What it does</th><th>Example</th></tr></thead>
+  <tbody>
+    <tr><td><code>APP_BASE_PATH</code></td><td>The part of the address in front of every page. <code>/solarcore/public</code> for XAMPP (the default). <code>/</code> when SolarCORE has its own domain or subdomain. Write <code>/</code>, not a blank, for a root.</td><td><code>/solarcore/public</code></td></tr>
+    <tr><td><code>APP_URL</code></td><td>The full public address, including that prefix, with no slash at the end. Used for links in emails and for Google sign-in, so it must match the address people actually type.</td><td><code>http://localhost/solarcore/public</code></td></tr>
+  </tbody>
+</table>
+
+<h2 id="database">Database</h2>
+<table>
+  <thead><tr><th>Setting</th><th>What it does</th><th>Example</th></tr></thead>
+  <tbody>
+    <tr><td><code>DB_HOST</code></td><td>The PostgreSQL server.</td><td><code>localhost</code></td></tr>
+    <tr><td><code>DB_PORT</code></td><td>Its port. 5432 is PostgreSQL's default; use whatever you chose when installing it.</td><td><code>5432</code></td></tr>
+    <tr><td><code>DB_DATABASE</code></td><td>The database name.</td><td><code>solarcore_db</code></td></tr>
+    <tr><td><code>DB_USERNAME</code></td><td>The database user.</td><td><code>postgres</code></td></tr>
+    <tr><td><code>DB_PASSWORD</code></td><td>That user's password.</td><td></td></tr>
+  </tbody>
+</table>
+
+<h2 id="organisation">Organisation</h2>
+<p>Who this copy of SolarCORE belongs to. These three settings are the only change needed to run SolarCORE for a different company.</p>
+<table>
+  <thead><tr><th>Setting</th><th>What it does</th><th>Example</th></tr></thead>
+  <tbody>
+    <tr><td><code>ORG_NAME</code></td><td>Full company name. Appears on PDF reports and in the assistant's answers.</td><td><code>"Company A"</code></td></tr>
+    <tr><td><code>ORG_SHORT</code></td><td>Short name.</td><td><code>"Comp A"</code></td></tr>
+    <tr><td><code>ORG_ABOUT</code></td><td>A few sentences the assistant may use to describe the company. Leave it blank and the assistant declines questions about the company instead of guessing.</td><td><code>"Company A installs…"</code></td></tr>
+  </tbody>
+</table>
+
+<h2 id="outgoing-mail">Outgoing mail</h2>
+<p>Email carries the login codes (<strong>every sign-in needs one</strong>), notifications, and Contact Us and client report messages. Inquiries and reports are always saved in SolarCORE as well, and emailed to <code>MAIL_FROM_ADDRESS</code>, which is treated as the company inbox.</p>
+<table>
+  <thead><tr><th>Setting</th><th>What it does</th></tr></thead>
+  <tbody>
+    <tr><td><code>MAIL_DRIVER</code></td><td><code>brevo</code>, <code>smtp</code> or <code>none</code>. Leave blank to pick automatically: Brevo if a Brevo key is set, otherwise SMTP if a mail host is set.</td></tr>
+    <tr><td><code>MAIL_FROM_ADDRESS</code></td><td>The sender address, and the company inbox. With Brevo it must be a sender you have verified in Brevo.</td></tr>
+    <tr><td><code>MAIL_FROM_NAME</code></td><td>The sender name, e.g. <code>"SolarCORE"</code>.</td></tr>
+    <tr><td><code>BREVO_API_KEY</code></td><td>For <code>brevo</code>: an API key from Brevo (<em>SMTP &amp; API → API Keys</em>). Sends over HTTPS, so it works on hosts that block mail ports.</td></tr>
+    <tr><td><code>MAIL_HOST</code>, <code>MAIL_PORT</code>, <code>MAIL_USERNAME</code>, <code>MAIL_PASSWORD</code>, <code>MAIL_ENCRYPTION</code></td><td>For <code>smtp</code>. <code>MAIL_ENCRYPTION</code> is <code>tls</code> (port 587), <code>ssl</code> (port 465) or <code>none</code>.</td></tr>
+  </tbody>
+</table>
+<h3>Using Gmail (SMTP)</h3>
+<ol class="steps">
+  <li><strong>Turn on 2-Step Verification</strong> for the Google account.</li>
+  <li><strong>Create an App Password</strong> under <em>Google Account → Security → App passwords</em>.</li>
+  <li><strong>Fill in the settings</strong>, using the App Password, not your normal password:
+<pre data-label=".env"><code>MAIL_DRIVER=smtp
+MAIL_FROM_ADDRESS=yourcompany@gmail.com
+MAIL_HOST=smtp.gmail.com
+MAIL_PORT=587
+MAIL_USERNAME=yourcompany@gmail.com
+MAIL_PASSWORD=
+MAIL_ENCRYPTION=tls</code></pre></li>
+</ol>
+<p>To check the mail settings, the project includes <code>scripts/send-test-email.php</code>.</p>
+
+<h2 id="login-verification">Login verification</h2>
+<table>
+  <thead><tr><th>Setting</th><th>What it does</th></tr></thead>
+  <tbody>
+    <tr><td><code>LOGIN_EMAIL_CODE</code></td><td><code>on</code> (default): every sign-in needs the emailed 6-digit code. <code>off</code>: an emergency switch only, for example if the mail provider is down. Leave it on.</td></tr>
+  </tbody>
+</table>
+<p>A code is valid for 10 minutes and allows 5 tries. A new one can be requested after 60 seconds.</p>
+
+<h2 id="google-sign-in">Continue with Google</h2>
+<table>
+  <thead><tr><th>Setting</th><th>What it does</th></tr></thead>
+  <tbody>
+    <tr><td><code>GOOGLE_CLIENT_ID</code>, <code>GOOGLE_CLIENT_SECRET</code></td><td>From Google Cloud Console: <em>APIs &amp; Services → Credentials → Create credentials → OAuth client ID → Web application</em>. The consent screen needs the scopes <code>openid</code>, <code>email</code> and <code>profile</code>.</td></tr>
+    <tr><td><code>GOOGLE_REDIRECT_URI</code></td><td>Optional. Defaults to <code>APP_URL</code> + <code>/auth/google/callback</code>. Register that exact address as an <em>Authorized redirect URI</em> in Google Cloud Console.</td></tr>
+  </tbody>
+</table>
+<p>While these are empty, the Google button still shows and explains that Google sign-in is not set up yet.</p>
+
+<h2 id="ai-assistant">AI assistant</h2>
+<p>The assistant works <strong>without</strong> these settings: it falls back to built-in, rule-based answers with plainer wording. Figures always come from the database either way.</p>
+<table>
+  <thead><tr><th>Setting</th><th>What it does</th></tr></thead>
+  <tbody>
+    <tr><td><code>AI_ENABLED</code></td><td><code>true</code> or <code>false</code>.</td></tr>
+    <tr><td><code>AI_PROVIDER</code></td><td><code>groq</code> (hosted, has a free tier, works on servers) or <code>ollama</code> (runs a model on the same machine; local use only).</td></tr>
+    <tr><td><code>AI_MODEL</code></td><td>For Groq, the recommended model is <code>openai/gpt-oss-120b</code>. For Ollama, e.g. <code>llama3.1:8b</code>. Providers retire models from time to time; check their current list.</td></tr>
+    <tr><td><code>GROQ_API_KEY</code></td><td>A key from <a href="https://console.groq.com" rel="noopener">console.groq.com</a>. Required when the provider is Groq.</td></tr>
+    <tr><td><code>OLLAMA_URL</code></td><td>Where Ollama listens, e.g. <code>http://localhost:11434</code>.</td></tr>
+  </tbody>
+</table>
+
+<h2 id="photo-storage">Photo storage</h2>
+<table>
+  <thead><tr><th>Setting</th><th>What it does</th></tr></thead>
+  <tbody>
+    <tr><td><code>PHOTO_STORAGE_PATH</code></td><td>Where uploaded photos are saved. <strong>On your own computer, leave the line commented out</strong> (the default folder is used); do not set it to an empty value. On a server, point it at a permanent folder or volume <strong>outside</strong> <code>public/</code>, e.g. <code>/data/photos</code> on Railway.</td></tr>
+  </tbody>
+</table>
+
+<h2 id="map-area">Map area</h2>
+<p>The map's starting point, zoom and allowed area are not in <code>.env</code>; they are in <code>config/geo.php</code>. The default view centres on the Philippines (12.8797, 121.7740) at zoom 6. Change it there to open the map on your company's service area. The form's map opens on your existing installations automatically.</p>
+
+<h2>A complete example</h2>
+<p>A local development setup with Gmail. Secrets are left empty here; fill them in your own <code>.env</code>.</p>
+<pre data-label=".env"><code>APP_NAME=SolarCORE
+APP_ENV=development
+APP_BASE_PATH=/solarcore/public
+APP_URL=http://localhost/solarcore/public
+
+DB_HOST=localhost
+DB_PORT=5432
+DB_DATABASE=solarcore_db
+DB_USERNAME=postgres
+DB_PASSWORD=
+
+AI_ENABLED=true
+AI_PROVIDER=groq
+AI_MODEL=openai/gpt-oss-120b
+GROQ_API_KEY=
+
+ORG_NAME="Company A"
+ORG_SHORT="Comp A"
+ORG_ABOUT="Company A installs and maintains solar systems in Santiago City and nearby areas."
+
+MAIL_DRIVER=smtp
+MAIL_FROM_ADDRESS=
+MAIL_FROM_NAME="SolarCORE"
+MAIL_HOST=smtp.gmail.com
+MAIL_PORT=587
+MAIL_USERNAME=
+MAIL_PASSWORD=
+MAIL_ENCRYPTION=tls
+
+GOOGLE_CLIENT_ID=
+GOOGLE_CLIENT_SECRET=
+
+LOGIN_EMAIL_CODE=on</code></pre>
+
+    </article>
+    <nav class="pager" id="pager" aria-label="Previous and next page"></nav>
+    <footer class="page-foot">SolarCORE &middot; College of Information Technology, University of La Salette, Inc. &middot; In partnership with ABS Global Management, Inc.</footer>
+  </main>
+  <aside class="toc" id="toc" aria-label="On this page"></aside>
+</div>
+<script src="assets/js/docs.js"></script>
+</body>
+</html>

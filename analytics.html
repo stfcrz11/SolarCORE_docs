@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Analytics and notifications · SolarCORE Docs</title>
+<meta name="description" content="SolarCORE's analytics page and PDF export, how installed capacity is counted, and how notifications and emails work.">
+<link rel="icon" type="image/png" href="assets/img/logo.png">
+<link rel="stylesheet" href="assets/css/docs.css">
+<script>try{var t=localStorage.getItem("sc-docs-theme");if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+</head>
+<body>
+<header class="topbar">
+  <button type="button" class="icon-btn menu-btn" id="menu-btn" aria-label="Menu" aria-expanded="false" aria-controls="sidebar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+  <a class="brand" href="index.html"><img src="assets/img/logo.png" alt="SolarCORE"><span class="brand__tag">Documentation</span></a>
+  <span class="topbar__spacer"></span>
+  <button type="button" class="icon-btn" id="theme-btn" aria-label="Switch light or dark mode" title="Light / dark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+</header>
+<div class="layout">
+  <nav class="sidebar" id="sidebar" aria-label="Documentation pages"></nav>
+  <main class="content">
+    <article class="doc">
+<p class="eyebrow">Using SolarCORE</p>
+<h1>Analytics and notifications</h1>
+<p class="lead">The <span class="ui">Analytics</span> tab turns the installation records into figures and charts. Staff see the whole company; a client sees only their own installations.</p>
+
+<h2 id="analytics">The analytics page</h2>
+<h3>Headline figures</h3>
+<table>
+  <thead><tr><th>Figure</th><th>Meaning</th></tr></thead>
+  <tbody>
+    <tr><td>Total installations</td><td>Every installation on record, in any status.</td></tr>
+    <tr><td>Installed capacity (kWp)</td><td>The capacity of systems that are built, excluding awarded and under-construction ones.</td></tr>
+    <tr><td>Average system (kWp)</td><td>The average size of those built systems.</td></tr>
+    <tr><td>Barangays covered</td><td>How many different barangays have an installation.</td></tr>
+  </tbody>
+</table>
+
+<h3>Charts</h3>
+<table>
+  <thead><tr><th>Chart</th><th>Shows</th></tr></thead>
+  <tbody>
+    <tr><td>Last 12 months</td><td>New installations per month. Months with none show as zero rather than disappearing.</td></tr>
+    <tr><td>By year</td><td>Installations per year.</td></tr>
+    <tr><td>By type</td><td>Count and installed capacity for on-grid, off-grid and hybrid.</td></tr>
+    <tr><td>By status</td><td>The current state of every installation.</td></tr>
+    <tr><td>Top municipalities</td><td>The 10 municipalities with the most installations.</td></tr>
+    <tr><td>Top barangays</td><td>The 10 barangays with the most installations.</td></tr>
+  </tbody>
+</table>
+
+<h3>Export to PDF</h3>
+<p>Click <span class="ui">Export</span> at the top of the page. The PDF contains the same charts plus tables of the exact numbers, the date it was made, and (for a client) a note that it covers their own installations only. Analytics exports are recorded in the audit trail.</p>
+
+<div class="callout">
+  <span class="callout__title">Why "installed capacity" can be smaller than the sum of all systems</span>
+  An awarded or under-construction system is not producing anything yet. Counting it would overstate what is actually installed, so SolarCORE leaves it out of installed capacity everywhere: the dashboard, analytics, PDF exports and the assistant.
+</div>
+
+<h2 id="notifications">Notifications</h2>
+<p>The bell in the top bar shows a red count of unread notifications. Click it to see them; click one to open what it is about. You can also mark them all as read.</p>
+<table>
+  <thead><tr><th>You are</th><th>You are notified when</th></tr></thead>
+  <tbody>
+    <tr><td><span class="role-pill role-pill--admin">Administrator</span></td><td>someone registers and waits for approval; an installation is added, changed or deleted; plus everything a technician is notified of.</td></tr>
+    <tr><td><span class="role-pill role-pill--tech">Technician</span></td><td>a client report arrives, changes status or gets a follow-up; an inquiry arrives; your own role is changed.</td></tr>
+    <tr><td><span class="role-pill role-pill--client">Client</span></td><td>your account is approved; an installation is linked to your account; your report's status changes or the company adds a note to it.</td></tr>
+  </tbody>
+</table>
+<p>You are not notified about your own actions.</p>
+
+<h2 id="email">Email</h2>
+<p>Besides login codes, SolarCORE sends:</p>
+<ul>
+  <li><strong>to the company inbox</strong> (the address set as <code>MAIL_FROM_ADDRESS</code>): every Contact Us inquiry, every new client report and follow-up, and every new registration waiting for approval;</li>
+  <li><strong>to clients:</strong> account approved or declined, an installation linked to their account, and notes on their reports.</li>
+</ul>
+<p>Everything is also saved inside SolarCORE, so nothing is lost if an email does not arrive.</p>
+
+    </article>
+    <nav class="pager" id="pager" aria-label="Previous and next page"></nav>
+    <footer class="page-foot">SolarCORE &middot; College of Information Technology, University of La Salette, Inc. &middot; In partnership with ABS Global Management, Inc.</footer>
+  </main>
+  <aside class="toc" id="toc" aria-label="On this page"></aside>
+</div>
+<script src="assets/js/docs.js"></script>
+</body>
+</html>

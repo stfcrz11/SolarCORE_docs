@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Security · SolarCORE Docs</title>
+<meta name="description" content="How SolarCORE protects accounts and data: emailed login codes, role-based access, client data scoping, secure sessions, security headers, audit trail and data privacy.">
+<link rel="icon" type="image/png" href="assets/img/logo.png">
+<link rel="stylesheet" href="assets/css/docs.css">
+<script>try{var t=localStorage.getItem("sc-docs-theme");if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+</head>
+<body>
+<header class="topbar">
+  <button type="button" class="icon-btn menu-btn" id="menu-btn" aria-label="Menu" aria-expanded="false" aria-controls="sidebar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+  <a class="brand" href="index.html"><img src="assets/img/logo.png" alt="SolarCORE"><span class="brand__tag">Documentation</span></a>
+  <span class="topbar__spacer"></span>
+  <button type="button" class="icon-btn" id="theme-btn" aria-label="Switch light or dark mode" title="Light / dark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+</header>
+<div class="layout">
+  <nav class="sidebar" id="sidebar" aria-label="Documentation pages"></nav>
+  <main class="content">
+    <article class="doc">
+<p class="eyebrow">Operations</p>
+<h1>Security</h1>
+<p class="lead">SolarCORE holds customers' names, addresses, contact numbers and the locations of their homes and businesses. This page summarises how that data is protected and what the people running it should do.</p>
+
+<h2 id="accounts">Accounts and sign-in</h2>
+<ul>
+  <li><strong>Two steps to sign in:</strong> a password, then a 6-digit code sent to the account's email. A code is random, stored only as a keyed hash, valid for 10 minutes, and allows 5 tries.</li>
+  <li><strong>Lockout:</strong> 5 wrong passwords lock the account for 15 minutes.</li>
+  <li><strong>Passwords</strong> are stored as one-way hashes, never as text, and never written to logs or the audit trail.</li>
+  <li><strong>Google sign-in</strong> checks that the token is from Google, for SolarCORE, unexpired, single-use and for a verified email.</li>
+  <li><strong>New client accounts</strong> cannot sign in until an administrator approves them.</li>
+  <li><strong>The built-in administrator</strong> must set its own password and a real email at first sign-in.</li>
+  <li><strong>Idle sessions</strong> end after 30 minutes. Signing out is a protected action that a link on another site cannot trigger.</li>
+</ul>
+
+<h2 id="access">Who can see what</h2>
+<ul>
+  <li>Every page and every data request checks the user's role <strong>on the server</strong>; hiding a button is never the only protection.</li>
+  <li>Clients are limited to the installations linked to their own account: on the map, in lists, analytics, PDF exports, photos and assistant answers. Their account decides this, not anything they type or put in a link.</li>
+  <li>A photo belonging to someone else's installation answers exactly like a photo that does not exist, so stepping through photo addresses reveals nothing.</li>
+  <li>The public map shows anonymous density in roughly 1 km squares, never a site's location, name or owner.</li>
+  <li>Deleting installations, managing accounts and reading the audit trail are for administrators only.</li>
+</ul>
+
+<h2 id="web">Web protections</h2>
+<ul>
+  <li><strong>CSRF tokens</strong> on every form and every change, so another website cannot act on a signed-in user's behalf.</li>
+  <li><strong>Parameterised SQL</strong> everywhere: values typed by users are never inserted into database queries as text.</li>
+  <li><strong>Session cookie</strong>: <code>HttpOnly</code> (page scripts cannot read it), <code>SameSite=Lax</code>, and <code>Secure</code> over HTTPS.</li>
+  <li><strong>Security headers</strong> on every response:
+    <table>
+      <thead><tr><th>Header</th><th>Stops</th></tr></thead>
+      <tbody>
+        <tr><td><code>X-Content-Type-Options: nosniff</code></td><td>The browser guessing a file's type, e.g. running an upload as a script.</td></tr>
+        <tr><td><code>X-Frame-Options: DENY</code></td><td>Other sites showing SolarCORE inside a frame to trick clicks.</td></tr>
+        <tr><td><code>Referrer-Policy: strict-origin-when-cross-origin</code></td><td>Page addresses leaking to other sites.</td></tr>
+        <tr><td><code>Strict-Transport-Security</code> (HTTPS only)</td><td>Browsers falling back to unencrypted HTTP.</td></tr>
+      </tbody>
+    </table></li>
+  <li><strong>Only <code>public/</code> is served.</strong> The settings file, code and project history cannot be downloaded.</li>
+  <li><strong>Uploads</strong> are checked by their real content type (JPG, PNG, WebP only), limited to 5 MB, renamed randomly and stored outside the public folder.</li>
+</ul>
+
+<h2 id="audit">Accountability</h2>
+<ul>
+  <li>The audit trail records sign-ins (including failed and blocked ones), changes to installations with old and new values, account changes, imports and exports.</li>
+  <li>Entries are kept for two years, then removed by a scheduled script that records its own run.</li>
+</ul>
+
+<h2 id="for-operators">For the people running SolarCORE</h2>
+<ul>
+  <li>Keep secrets (database password, mail and AI keys) in <code>.env</code> or the platform's variables. <strong>Never in the code repository, chats or screenshots.</strong> If one leaks, change it at the provider.</li>
+  <li>Always use HTTPS on a real server, with <code>APP_ENV=production</code>.</li>
+  <li>Give each person their own account, and deactivate it the day they leave.</li>
+  <li>Back up daily and keep copies off the server, readable only by the people operating the system.</li>
+  <li>Limit server, database and hosting-dashboard access to named people, and keep a list of who has it.</li>
+</ul>
+
+<h2 id="privacy">Data privacy (RA 10173)</h2>
+<p>The Philippine Data Privacy Act of 2012 applies to the personal data in SolarCORE. In practice:</p>
+<ul>
+  <li>Use the data only to run the service and evaluate it; report aggregates (counts, capacity), not customer names or addresses.</li>
+  <li>Record where the data is hosted and who can access it.</li>
+  <li>Agree in writing with the company what happens to the data when a pilot or contract ends: handed over, or deleted including every backup copy.</li>
+</ul>
+<p class="callout callout--tip" style="display:block">To report a security problem, contact the SolarCORE team directly rather than posting it publicly.</p>
+
+    </article>
+    <nav class="pager" id="pager" aria-label="Previous and next page"></nav>
+    <footer class="page-foot">SolarCORE &middot; College of Information Technology, University of La Salette, Inc. &middot; In partnership with ABS Global Management, Inc.</footer>
+  </main>
+  <aside class="toc" id="toc" aria-label="On this page"></aside>
+</div>
+<script src="assets/js/docs.js"></script>
+</body>
+</html>

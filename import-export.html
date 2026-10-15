@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Import and export · SolarCORE Docs</title>
+<meta name="description" content="Import installations from a CSV spreadsheet with column mapping, validation and duplicate checks, and export them to CSV, GeoJSON or PDF.">
+<link rel="icon" type="image/png" href="assets/img/logo.png">
+<link rel="stylesheet" href="assets/css/docs.css">
+<script>try{var t=localStorage.getItem("sc-docs-theme");if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+</head>
+<body>
+<header class="topbar">
+  <button type="button" class="icon-btn menu-btn" id="menu-btn" aria-label="Menu" aria-expanded="false" aria-controls="sidebar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+  <a class="brand" href="index.html"><img src="assets/img/logo.png" alt="SolarCORE"><span class="brand__tag">Documentation</span></a>
+  <span class="topbar__spacer"></span>
+  <button type="button" class="icon-btn" id="theme-btn" aria-label="Switch light or dark mode" title="Light / dark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+</header>
+<div class="layout">
+  <nav class="sidebar" id="sidebar" aria-label="Documentation pages"></nav>
+  <main class="content">
+    <article class="doc">
+<p class="eyebrow">Using SolarCORE</p>
+<h1>Import and export</h1>
+<p class="lead">Bring many installations in at once from a spreadsheet, and take the list out for reports or GIS software. Both are for administrators and technicians.</p>
+
+<h2 id="import">Importing a spreadsheet</h2>
+<p>Open <span class="ui">Installations</span> → <span class="ui">Import</span>. An import has three steps, and nothing is saved until the last one.</p>
+
+<ol class="steps">
+  <li><strong>Upload a CSV file</strong>
+    Start from <span class="ui">Download CSV template</span> if you are making a new sheet; it has the right columns and an example row. Upload your file and click <span class="ui">Continue to preview</span>. Up to 2,000 rows per file.</li>
+  <li><strong>Match the columns</strong>
+    SolarCORE guesses which of your columns is which: "Site Name", "Lat" or "kWp" are recognised. Check the guesses, fix any that are wrong, then click <span class="ui">Next step</span>. If the file uses the template's exact column names, this step is skipped.</li>
+  <li><strong>Review and import</strong>
+    Every row is shown as <em>ready</em>, <em>duplicate</em> or <em>invalid</em>, with the reason. Fix invalid rows in your spreadsheet and upload again, or import the ready rows now with <span class="ui">Import installations</span>.</li>
+</ol>
+
+<div class="callout callout--tip">
+  <span class="callout__title">All or nothing</span>
+  The ready rows are saved together. If anything goes wrong while saving, none of them are, so a failed import can simply be tried again without creating doubles.
+</div>
+
+<h3>Saving a CSV from Excel</h3>
+<p>Excel files (<code>.xlsx</code>, <code>.xls</code>) are not read directly. In Excel choose <em>File → Save As → CSV UTF-8 (Comma delimited) (*.csv)</em> and upload that file. These are all accepted:</p>
+<ul>
+  <li>comma-, semicolon- or tab-separated files (Excel in many regions saves "CSV" with semicolons);</li>
+  <li>Excel's UTF-8 files, so names like <em>Peñablanca</em> come through correctly;</li>
+  <li>blank lines, which are skipped.</li>
+</ul>
+
+<h3>Columns</h3>
+<table>
+  <thead><tr><th>Column</th><th>Required</th><th>Accepted values</th></tr></thead>
+  <tbody>
+    <tr><td><code>installation_name</code></td><td>Yes</td><td>The site's name, e.g. "Dela Cruz Residence".</td></tr>
+    <tr><td><code>client_name</code></td><td>Yes</td><td>The owner's name. Imported installations are not linked to a client account; link them later on the installation's form.</td></tr>
+    <tr><td><code>address</code></td><td>Yes</td><td>Street address.</td></tr>
+    <tr><td><code>barangay</code>, <code>municipality</code>, <code>province</code></td><td>No</td><td>Used for analytics by area and for search.</td></tr>
+    <tr><td><code>latitude</code>, <code>longitude</code></td><td>Yes</td><td>Decimal degrees, e.g. <code>16.6870</code> and <code>121.5480</code>. Must be inside the Philippines.</td></tr>
+    <tr><td><code>installation_type</code></td><td>Yes</td><td><code>on-grid</code>, <code>off-grid</code> or <code>hybrid</code>. Also "On Grid", "grid-tied", "standalone" and similar.</td></tr>
+    <tr><td><code>capacity_kwp</code></td><td>Yes</td><td>A number above 0, with or without "kWp", e.g. <code>5.5</code> or <code>5.5 kWp</code>.</td></tr>
+    <tr><td><code>installation_date</code></td><td>Yes</td><td>Best as <code>YYYY-MM-DD</code>. Other common formats, such as <code>03/03/2026</code> or <code>March 3, 2026</code>, are accepted. Impossible dates like 31 February are rejected.</td></tr>
+    <tr><td><code>status</code></td><td>Yes</td><td>awarded, under construction, operational, under maintenance, inactive or decommissioned. Common words work too: "active", "online", "repair", "retired"…</td></tr>
+    <tr><td><code>notes</code></td><td>No</td><td>Anything else.</td></tr>
+  </tbody>
+</table>
+
+<h3>Duplicates</h3>
+<p>Uploading the same sheet twice would double every installation and every total, so each row is checked against the installations already in SolarCORE and against earlier rows of the same file.</p>
+<table>
+  <thead><tr><th>Result</th><th>When</th><th>What happens</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Duplicate</strong></td><td>The same name (ignoring capitals, spacing and punctuation) within 50 m or at the same address; or any record within 3 m, whatever its name.</td><td>Skipped, unless you tick <span class="ui">Import anyway</span> for that row.</td></tr>
+    <tr><td><strong>Nearby</strong></td><td>A different name within 25 m of an existing installation.</td><td>A warning only; it is imported. Neighbouring houses really do both have panels.</td></tr>
+  </tbody>
+</table>
+
+<h3>Common reasons a row is invalid</h3>
+<ul>
+  <li><em>Coordinates fall outside the Philippines</em>: latitude and longitude are often swapped. Latitude is the smaller number, around 5 to 21.</li>
+  <li><em>Type must be one of: on-grid, off-grid, hybrid</em>.</li>
+  <li><em>Capacity (kWp) must be a number greater than 0</em>.</li>
+  <li><em>Installation date is missing, unreadable or not a real date</em>.</li>
+  <li>A row whose cells are shifted, usually because of a stray quote mark (<code>"</code>) in the sheet. Remove it and save the CSV again.</li>
+</ul>
+
+<h2 id="export">Exporting</h2>
+<p>On <span class="ui">Installations</span>, set any search and filters first, then open <span class="ui">Export</span> and choose a format. <strong>The export contains exactly what the list is showing.</strong></p>
+<table>
+  <thead><tr><th>Format</th><th>Good for</th><th>Contains</th></tr></thead>
+  <tbody>
+    <tr><td><strong>CSV</strong></td><td>Excel, Google Sheets, other systems</td><td>One row per installation with every field.</td></tr>
+    <tr><td><strong>GeoJSON</strong></td><td>QGIS, ArcGIS, geojson.io and other GIS tools</td><td>A point per installation in WGS 84 (EPSG:4326), its fields as properties, plus the export date, who exported it and the filters used.</td></tr>
+    <tr><td><strong>PDF</strong></td><td>Printing, sharing with management</td><td>A formatted table with the filters, the generation date, the record count and the installed capacity.</td></tr>
+  </tbody>
+</table>
+<p>Every export is recorded in the audit trail: who exported, which format and how many records.</p>
+
+<h3>Opening the GeoJSON in QGIS</h3>
+<ol class="steps">
+  <li><strong>Open QGIS</strong> and start a new project.</li>
+  <li><strong><em>Layer → Add Layer → Add Vector Layer…</em></strong>, choose the downloaded <code>.geojson</code> file, then <em>Add</em>. Dragging the file onto the map also works.</li>
+  <li><strong>Add a basemap</strong> if you like: in the Browser panel, <em>XYZ Tiles → OpenStreetMap</em>.</li>
+</ol>
+<p>Installations without coordinates cannot be placed on a map. They are left out of the GeoJSON and counted in its metadata as <code>skipped_no_coordinates</code>.</p>
+
+<h3>Installed capacity in the PDF</h3>
+<p>The PDF's <em>Installed capacity (operational)</em> counts systems that are built. Awarded and under-construction installations are excluded, and the PDF says how many were left out.</p>
+
+    </article>
+    <nav class="pager" id="pager" aria-label="Previous and next page"></nav>
+    <footer class="page-foot">SolarCORE &middot; College of Information Technology, University of La Salette, Inc. &middot; In partnership with ABS Global Management, Inc.</footer>
+  </main>
+  <aside class="toc" id="toc" aria-label="On this page"></aside>
+</div>
+<script src="assets/js/docs.js"></script>
+</body>
+</html>

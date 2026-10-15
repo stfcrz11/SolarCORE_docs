@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Deployment and backups · SolarCORE Docs</title>
+<meta name="description" content="Putting SolarCORE on a server (Railway with Docker, or a Linux virtual machine), production settings, backups, restoring and audit retention.">
+<link rel="icon" type="image/png" href="assets/img/logo.png">
+<link rel="stylesheet" href="assets/css/docs.css">
+<script>try{var t=localStorage.getItem("sc-docs-theme");if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+</head>
+<body>
+<header class="topbar">
+  <button type="button" class="icon-btn menu-btn" id="menu-btn" aria-label="Menu" aria-expanded="false" aria-controls="sidebar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+  <a class="brand" href="index.html"><img src="assets/img/logo.png" alt="SolarCORE"><span class="brand__tag">Documentation</span></a>
+  <span class="topbar__spacer"></span>
+  <button type="button" class="icon-btn" id="theme-btn" aria-label="Switch light or dark mode" title="Light / dark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+</header>
+<div class="layout">
+  <nav class="sidebar" id="sidebar" aria-label="Documentation pages"></nav>
+  <main class="content">
+    <article class="doc">
+<p class="eyebrow">Operations</p>
+<h1>Deployment and backups</h1>
+<p class="lead">How to run SolarCORE on a server that people reach over the internet, keep it backed up, and bring it back if something goes wrong. The project's <code>docs/</code> folder has the full guides; this page is the overview.</p>
+
+<h2 id="choose-a-platform">Choose a platform</h2>
+<p><strong>Check PostGIS first: it decides the platform.</strong> SolarCORE needs PostgreSQL with the PostGIS extension. On the database you plan to use, run:</p>
+<pre data-label="SQL"><code>CREATE EXTENSION IF NOT EXISTS postgis;
+SELECT postgis_full_version();</code></pre>
+<table>
+  <thead><tr><th>Option</th><th>Use when</th><th>You manage</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Railway</strong> (Docker)</td><td>The platform offers PostgreSQL with PostGIS. Least server work.</td><td>Variables, a volume for photos, backups</td></tr>
+    <tr><td><strong>Linux virtual machine</strong></td><td>You want full control, or the platform has no PostGIS.</td><td>The operating system, PHP, PostgreSQL, the web server, HTTPS, backups</td></tr>
+  </tbody>
+</table>
+<p>Shared hosting without PostGIS cannot run SolarCORE.</p>
+
+<h2 id="server-requirements">Server requirements</h2>
+<table>
+  <thead><tr><th>Need</th><th>Detail</th></tr></thead>
+  <tbody>
+    <tr><td>Operating system</td><td>Any Linux with the packages below; Ubuntu 22.04 or 24.04 LTS is the simplest.</td></tr>
+    <tr><td>PHP</td><td>8.2 or 8.3, with <code>pdo_pgsql</code>, <code>curl</code>, <code>mbstring</code>, <code>dom</code>, <code>json</code> and <code>fileinfo</code>.</td></tr>
+    <tr><td>Composer</td><td>2.x</td></tr>
+    <tr><td>PostgreSQL</td><td>14 or newer, <strong>with PostGIS</strong>.</td></tr>
+    <tr><td>Web server</td><td>Apache with <code>mod_rewrite</code>, or Nginx with PHP-FPM, serving <strong>only</strong> the <code>public/</code> folder.</td></tr>
+    <tr><td>HTTPS</td><td>A domain or subdomain with a certificate (e.g. Let's Encrypt). Needed for secure cookies and for Google sign-in.</td></tr>
+    <tr><td>Photo folder</td><td>Writable by the web server and <strong>outside</strong> <code>public/</code>.</td></tr>
+    <tr><td>Outbound HTTPS</td><td>To the email provider (Brevo), the AI provider (Groq) and Google sign-in.</td></tr>
+  </tbody>
+</table>
+
+<h2 id="railway">On Railway</h2>
+<ol class="steps">
+  <li><strong>Create three things</strong> in a Railway project:
+    <ul>
+      <li>the app, a service from the code repository (Railway builds the included <code>Dockerfile</code>);</li>
+      <li>a PostgreSQL database with PostGIS;</li>
+      <li>a volume on the app, mounted at <code>/data/photos</code>.</li>
+    </ul></li>
+  <li><strong>Set the variables</strong> on the app service: the production settings below, the <code>DB_*</code> values from the database, and <code>PHOTO_STORAGE_PATH=/data/photos</code>.</li>
+  <li><strong>Deploy.</strong> On every start the container runs the migrations; the log ends with <code>Done. All migrations applied.</code> If a migration fails, the app does not start, so read the error and redeploy.</li>
+  <li><strong>Add a domain</strong> in Railway. HTTPS is provided.</li>
+  <li><strong>Sign in as <code>admin</code></strong> and set the real password and email (email must already work).</li>
+</ol>
+<div class="callout callout--warn">
+  <span class="callout__title">The photo volume is not optional</span>
+  A container's own files are rebuilt at every deploy. Without the volume, every uploaded photo disappears while its database record stays.
+</div>
+
+<h2 id="virtual-machine">On a virtual machine</h2>
+<pre data-label="Terminal"><code>git clone &lt;repository&gt; /var/www/solarcore &amp;&amp; cd /var/www/solarcore
+composer install --no-dev --optimize-autoloader
+cp .env.example .env      # then fill it in
+chmod 600 .env            # readable by its owner only
+php scripts/migrate.php   # creates the schema</code></pre>
+<p>Point the web server's document root at <code>/var/www/solarcore/public</code>, make the photo folder writable by the web server user, and reload. The project's <code>docs/WEB_SERVER_SETUP.md</code> has ready-made Apache and Nginx configurations.</p>
+
+<h2 id="production-settings">Production settings</h2>
+<p>Set everything in <a href="configuration.html">Configuration</a>. These differ from a laptop:</p>
+<table>
+  <thead><tr><th>Setting</th><th>Production value</th></tr></thead>
+  <tbody>
+    <tr><td><code>APP_ENV</code></td><td><code>production</code>. Hides error details from users.</td></tr>
+    <tr><td><code>APP_BASE_PATH</code></td><td><code>/</code> when served from the domain root.</td></tr>
+    <tr><td><code>APP_URL</code></td><td>The public <code>https://</code> address, with no trailing slash.</td></tr>
+    <tr><td><code>PHOTO_STORAGE_PATH</code></td><td>A permanent folder or volume outside <code>public/</code>.</td></tr>
+    <tr><td><code>MAIL_DRIVER</code></td><td><code>brevo</code> on platforms that block mail ports; <code>smtp</code> works on most virtual machines.</td></tr>
+    <tr><td><code>LOGIN_EMAIL_CODE</code></td><td>Leave unset, so codes stay on.</td></tr>
+  </tbody>
+</table>
+<div class="callout callout--danger">
+  <span class="callout__title">Change the initial administrator password</span>
+  The initial <code>admin</code> password exists in the project's history and must be treated as public. Use a different, strong password on every real server. SolarCORE forces a change at first sign-in.
+</div>
+
+<h2 id="smoke-test">After deploying: a quick check</h2>
+<ul>
+  <li>Sign in, and receive and enter the emailed code.</li>
+  <li>Add an installation with a photo; it appears on the map and the photo opens.</li>
+  <li>Switch the map layers; export CSV, GeoJSON and PDF; import the template.</li>
+  <li>Ask the assistant a question.</li>
+  <li>Sign in as a client and confirm only their installations appear.</li>
+  <li>Open <code>https://your-domain/.env</code>: it must <strong>not</strong> load.</li>
+</ul>
+
+<h2 id="backups">Backups</h2>
+<table>
+  <thead><tr><th>Target</th><th>Value</th></tr></thead>
+  <tbody>
+    <tr><td>How much data may be lost</td><td>At most 24 hours (one backup a day).</td></tr>
+    <tr><td>How long until running again</td><td>Within 4 hours. A restore of the data itself takes seconds.</td></tr>
+    <tr><td>Kept</td><td>The last 7 daily and 4 weekly copies, stored <strong>off the server</strong>.</td></tr>
+  </tbody>
+</table>
+<p>Two things must be backed up together: <strong>the database</strong>, and <strong>the photo folder</strong>, because the database stores only each photo's location. The included script does both, checks that the database copy can be read back, and deletes old copies:</p>
+<pre data-label="Terminal"><code>scripts/backup.sh --dry-run   # show what it would do
+scripts/backup.sh             # back up now</code></pre>
+<p>It writes to <code>backups/daily/</code> (and <code>backups/weekly/</code> on Sundays). The machine running it needs PostgreSQL's <code>pg_dump</code> and <code>pg_restore</code>, the same version as the server or newer.</p>
+<p>Schedule it every night, for example with cron on a virtual machine:</p>
+<pre data-label="crontab"><code>0 2 * * * cd /var/www/solarcore &amp;&amp; scripts/backup.sh &gt;&gt; /var/log/solarcore-backup.log 2&gt;&amp;1</code></pre>
+<p>Then copy the backups somewhere else (another machine, cloud storage). On Windows, Task Scheduler can run the script through Git Bash.</p>
+
+<h2 id="restore">Restoring</h2>
+<ol class="steps">
+  <li><strong>Stop the app</strong> so nobody writes to the database you are replacing.</li>
+  <li><strong>Create an empty database</strong>: <code>createdb -h &lt;host&gt; -U &lt;user&gt; solarcore_restore</code></li>
+  <li><strong>Restore the database copy</strong>:
+<pre data-label="Terminal"><code>pg_restore -h &lt;host&gt; -U &lt;user&gt; -d solarcore_restore --no-owner --exit-on-error backups/daily/solarcore-db-YYYY-MM-DD.dump</code></pre></li>
+  <li><strong>Restore the photos</strong>:
+<pre data-label="Terminal"><code>tar -xzf backups/daily/solarcore-photos-YYYY-MM-DD.tar.gz -C "$PHOTO_STORAGE_PATH"</code></pre></li>
+  <li><strong>Point the app at it</strong> (<code>DB_DATABASE</code>) and start it. Sign in, count the installations, open a photo, and check the latest audit entries.</li>
+</ol>
+<p>Practise a restore before going live. A backup that has never been restored is a hope, not a backup.</p>
+
+<h2 id="audit-retention">Audit trail retention</h2>
+<p>SolarCORE never deletes audit entries itself. Once a month, remove those older than two years:</p>
+<pre data-label="Terminal"><code>php scripts/purge-audit-logs.php --dry-run   # count only
+php scripts/purge-audit-logs.php             # remove, and record the purge</code></pre>
+<p>Run the backup first, so the removed entries still exist in that month's backups.</p>
+
+<h2 id="updating">Updating a server</h2>
+<ul>
+  <li><strong>Railway:</strong> push to the connected branch; Railway rebuilds, and the migrations run on start.</li>
+  <li><strong>Virtual machine:</strong> back up, then <code>git pull</code>, <code>composer install --no-dev --optimize-autoloader</code> and <code>php scripts/migrate.php</code>.</li>
+</ul>
+
+    </article>
+    <nav class="pager" id="pager" aria-label="Previous and next page"></nav>
+    <footer class="page-foot">SolarCORE &middot; College of Information Technology, University of La Salette, Inc. &middot; In partnership with ABS Global Management, Inc.</footer>
+  </main>
+  <aside class="toc" id="toc" aria-label="On this page"></aside>
+</div>
+<script src="assets/js/docs.js"></script>
+</body>
+</html>

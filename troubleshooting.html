@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Troubleshooting and FAQ · SolarCORE Docs</title>
+<meta name="description" content="Solutions to common SolarCORE problems: sign-in codes, database connection, PostGIS, blank pages, the map, photos, imports and the assistant.">
+<link rel="icon" type="image/png" href="assets/img/logo.png">
+<link rel="stylesheet" href="assets/css/docs.css">
+<script>try{var t=localStorage.getItem("sc-docs-theme");if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+</head>
+<body>
+<header class="topbar">
+  <button type="button" class="icon-btn menu-btn" id="menu-btn" aria-label="Menu" aria-expanded="false" aria-controls="sidebar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+  <a class="brand" href="index.html"><img src="assets/img/logo.png" alt="SolarCORE"><span class="brand__tag">Documentation</span></a>
+  <span class="topbar__spacer"></span>
+  <button type="button" class="icon-btn" id="theme-btn" aria-label="Switch light or dark mode" title="Light / dark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+</header>
+<div class="layout">
+  <nav class="sidebar" id="sidebar" aria-label="Documentation pages"></nav>
+  <main class="content">
+    <article class="doc">
+<p class="eyebrow">Operations</p>
+<h1>Troubleshooting and FAQ</h1>
+<p class="lead">Common problems and their fixes, grouped by where they show up.</p>
+
+<h2 id="signing-in">Signing in</h2>
+
+<h3>The login code never arrives</h3>
+<ul>
+  <li>Check the spam or junk folder.</li>
+  <li>Wait 60 seconds and click to send a new code. Only the newest code works.</li>
+  <li>The mail settings may be wrong. Check <code>MAIL_DRIVER</code> and its keys (<a href="configuration.html#outgoing-mail">Outgoing mail</a>); with Brevo, <code>MAIL_FROM_ADDRESS</code> must be a verified sender. Run <code>scripts/send-test-email.php</code> to test them.</li>
+  <li>On your own computer, <code>APP_ENV=development</code> shows the code on the page when it cannot be emailed.</li>
+</ul>
+
+<h3>"Too many incorrect codes" or "Too many codes sent"</h3>
+<p>The sign-in attempt has ended. Start again from the sign-in page with your password; a new code is sent.</p>
+
+<h3>"Too many failed attempts. Account locked for 15 minutes."</h3>
+<p>Five wrong passwords in a row lock the account. Wait 15 minutes, or ask an administrator to set a new password for you.</p>
+
+<h3>"Your account is awaiting administrator approval."</h3>
+<p>New client accounts need approval. An administrator approves them in <span class="ui">Administration</span> → <span class="ui">Users</span> → <span class="ui">Pending Approval</span>.</p>
+
+<h3>"This account has been deactivated."</h3>
+<p>An administrator turned the account off. Ask them to reactivate it.</p>
+
+<h3>I was signed out while working</h3>
+<p>Sessions end after 30 minutes without activity. A warning appears first; click <span class="ui">Stay signed in</span> to continue.</p>
+
+<h2 id="installation">Installation and setup</h2>
+
+<h3>"could not find driver" or "no pdo_pgsql driver"</h3>
+<p>PHP cannot talk to PostgreSQL. In <code>C:\xampp\php\php.ini</code>, enable <code>extension=pdo_pgsql</code> and restart Apache. Run commands with XAMPP's PHP (<code>C:\xampp\php\php.exe</code>); another PHP on your computer may not have the driver.</p>
+
+<h3>"Could not connect to the database"</h3>
+<ul>
+  <li>Is PostgreSQL running? On Windows, check <em>Services</em> for <em>postgresql</em>.</li>
+  <li>Do <code>DB_HOST</code>, <code>DB_PORT</code>, <code>DB_DATABASE</code>, <code>DB_USERNAME</code> and <code>DB_PASSWORD</code> in <code>.env</code> match your PostgreSQL? The port is often <code>5432</code>, but not always.</li>
+  <li>Does the database exist? Create it with <code>CREATE DATABASE solarcore_db;</code></li>
+</ul>
+
+<h3>Migration fails at 001_create_extensions.sql</h3>
+<p>PostGIS is not installed for your PostgreSQL. On Windows, install it with Stack Builder (<a href="installation.html#1-install-the-software">Installation, step 1</a>), then run <code>scripts/migrate.php</code> again.</p>
+
+<h3>Every page shows "Not Found"</h3>
+<ul>
+  <li>Open the right address: <code>http://localhost/solarcore/public/</code> for XAMPP.</li>
+  <li>If the project folder is not called <code>solarcore</code>, or SolarCORE is on a domain root, set <code>APP_BASE_PATH</code> and <code>APP_URL</code> to match (<a href="configuration.html#where-the-app-is-served">Configuration</a>).</li>
+  <li>Apache needs <code>mod_rewrite</code> on, and <code>AllowOverride All</code> for the folder. Both are on in a default XAMPP.</li>
+</ul>
+
+<h3>The page is blank or shows a PHP error</h3>
+<p>Run <code>composer install</code> in the project folder; the <code>vendor</code> folder may be missing. Then check Apache's error log (XAMPP Control Panel → Apache → Logs).</p>
+
+<h2 id="map">The map</h2>
+
+<h3>"The map could not load" or a grey background</h3>
+<p>The map's library and background images come from the internet. Check the connection, and that a firewall or ad blocker is not blocking <code>unpkg.com</code>, <code>arcgisonline.com</code> or <code>openstreetmap.org</code>. The data, the list and the forms keep working meanwhile.</p>
+
+<h3>An installation is missing from the map</h3>
+<ul>
+  <li>A filter may be on. A dot on the <span class="ui">Filters</span> button means so; click <span class="ui">Reset</span>.</li>
+  <li>For a client: the installation may not be linked to your account yet.</li>
+</ul>
+
+<h3>Nearby search says the spatial extension is not set up</h3>
+<p>PostGIS is not set up on this database. Install it and run <code>scripts/migrate.php</code>. Counts and capacity keep working without it.</p>
+
+<h2 id="data">Records, photos and imports</h2>
+
+<h3>"Coordinates fall outside the Philippines"</h3>
+<p>Latitude and longitude are probably swapped. In the Philippines, latitude is about 5 to 21 and longitude about 116 to 127.</p>
+
+<h3>A photo will not upload</h3>
+<p>Only JPG, PNG and WebP up to 5 MB are accepted. Phone photos in HEIC format must be converted first, or set the phone camera to "Most compatible".</p>
+
+<h3>Photos disappeared after a deploy (Railway)</h3>
+<p><code>PHOTO_STORAGE_PATH</code> is not on a volume, so photos were saved inside the container and lost when it was rebuilt. Attach a volume, set <code>PHOTO_STORAGE_PATH</code> to it, and restore the photos from a backup.</p>
+
+<h3>"Excel files can't be imported directly"</h3>
+<p>Save the sheet as CSV first: in Excel, <em>File → Save As → CSV UTF-8 (Comma delimited)</em>.</p>
+
+<h3>Imported rows are marked as duplicates</h3>
+<p>They match an installation already in SolarCORE, or an earlier row in the same file. If they really are different sites, tick <span class="ui">Import anyway</span> on those rows. See <a href="import-export.html#duplicates">Duplicates</a>.</p>
+
+<h3>The rest of my file is missing from the review</h3>
+<p>A cell probably opens a quotation mark (<code>"</code>) that never closes, so the rest of the file is read as one cell. That row is marked invalid. Remove the stray quote, save, and upload again.</p>
+
+<h2 id="assistant">The assistant</h2>
+
+<h3>The assistant's answers are short and plain</h3>
+<p>The AI service is off or unreachable, so built-in rules are answering. Check <code>AI_ENABLED</code>, <code>AI_PROVIDER</code>, <code>AI_MODEL</code> and the key (<a href="configuration.html#ai-assistant">AI assistant settings</a>). The figures are correct either way.</p>
+
+<h3>It says a place is unknown</h3>
+<p>Only places that appear in the records are recognised. Check the spelling, or ask about the municipality instead of the barangay.</p>
+
+<h2 id="faq">Frequently asked questions</h2>
+
+<h3>Does SolarCORE need an internet connection?</h3>
+<p>The system itself runs on the server. Users need a connection for the map backgrounds, email codes, Google sign-in and the AI wording. Everything else works on a local network.</p>
+
+<h3>Can it run on shared hosting?</h3>
+<p>Only if the host offers PostgreSQL with PostGIS, which most shared hosting does not. Use Railway or a virtual machine; see <a href="deployment.html">Deployment</a>.</p>
+
+<h3>Can clients edit their installations?</h3>
+<p>No. Clients view their installations and report problems; staff keep the records.</p>
+
+<h3>Can SolarCORE be used by another company?</h3>
+<p>Yes. Change <code>ORG_NAME</code>, <code>ORG_SHORT</code> and <code>ORG_ABOUT</code>, and the map area in <code>config/geo.php</code>.</p>
+
+<h3>Is deleted data really gone?</h3>
+<p>A deleted installation disappears from every page and export, and the deletion is recorded in the audit trail. Accounts are deactivated and archived rather than deleted, so their history is kept.</p>
+
+    </article>
+    <nav class="pager" id="pager" aria-label="Previous and next page"></nav>
+    <footer class="page-foot">SolarCORE &middot; College of Information Technology, University of La Salette, Inc. &middot; In partnership with ABS Global Management, Inc.</footer>
+  </main>
+  <aside class="toc" id="toc" aria-label="On this page"></aside>
+</div>
+<script src="assets/js/docs.js"></script>
+</body>
+</html>

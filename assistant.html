@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI assistant · SolarCORE Docs</title>
+<meta name="description" content="How SolarCORE's AI assistant answers questions about the installation records, what it can and cannot do, and why its figures are reliable.">
+<link rel="icon" type="image/png" href="assets/img/logo.png">
+<link rel="stylesheet" href="assets/css/docs.css">
+<script>try{var t=localStorage.getItem("sc-docs-theme");if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+</head>
+<body>
+<header class="topbar">
+  <button type="button" class="icon-btn menu-btn" id="menu-btn" aria-label="Menu" aria-expanded="false" aria-controls="sidebar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+  <a class="brand" href="index.html"><img src="assets/img/logo.png" alt="SolarCORE"><span class="brand__tag">Documentation</span></a>
+  <span class="topbar__spacer"></span>
+  <button type="button" class="icon-btn" id="theme-btn" aria-label="Switch light or dark mode" title="Light / dark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+</header>
+<div class="layout">
+  <nav class="sidebar" id="sidebar" aria-label="Documentation pages"></nav>
+  <main class="content">
+    <article class="doc">
+<p class="eyebrow">Using SolarCORE</p>
+<h1>AI assistant</h1>
+<p class="lead">The SolarCORE Assistant answers questions about the installation records in plain language. Open it with the chat button at the bottom right of any page after signing in.</p>
+
+<h2 id="what-to-ask">What you can ask</h2>
+<table>
+  <thead><tr><th>Kind of question</th><th>Examples</th></tr></thead>
+  <tbody>
+    <tr><td>Counts</td><td>"How many installations do we have?" · "How many hybrid systems are in Santiago City?"</td></tr>
+    <tr><td>Capacity</td><td>"What is the total capacity?" · "How many kWp are operational in Isabela?"</td></tr>
+    <tr><td>Lists</td><td>"Show the installations in Barangay Villasis." · "Which systems are under maintenance?"</td></tr>
+    <tr><td>Overviews</td><td>"Give me a breakdown of our installations." · "How did installations trend this year?"</td></tr>
+    <tr><td>Nearby sites <span class="role-pill role-pill--tech">Staff</span></td><td>"What is near Dela Cruz Residence?"</td></tr>
+    <tr><td>Solar terms</td><td>"What does kWp mean?" · "What is the difference between on-grid and hybrid?"</td></tr>
+    <tr><td>About SolarCORE</td><td>"What is SolarCORE?" · "What can you do?"</td></tr>
+  </tbody>
+</table>
+<p>When you first open it, suggested questions appear as buttons. The conversation stays while you move between pages, until you sign out.</p>
+
+<h2 id="how-it-works">Why its numbers can be trusted</h2>
+<p>Language models are good with words and bad with numbers. They can state a wrong figure with confidence. SolarCORE therefore splits the work:</p>
+<ol class="steps">
+  <li><strong>Understand</strong>. The model works out what you are asking: a count, a capacity or a list, and for which place, type or status.</li>
+  <li><strong>Query</strong>. SolarCORE runs a normal database query for the figures. Place names are matched against places that really exist in the records, so a misspelt or invented place is reported as unknown rather than answered with a confident zero.</li>
+  <li><strong>Word</strong>. The model turns those figures into a sentence. It is given the numbers; it does not calculate them.</li>
+</ol>
+<p>Installed capacity follows the same rule as everywhere else: systems that are awarded or under construction are not counted as installed.</p>
+
+<h2 id="privacy">Who sees what</h2>
+<ul>
+  <li><strong>Staff</strong> get figures for the whole company.</li>
+  <li><strong>Clients</strong> get figures for their own installations only. Their account decides this, not their question, so asking "show me all installations" does not widen it. If a client asks about a place where they have no installations, the answer is that they have none there.</li>
+  <li>Questions about which sites are near each other are answered for staff only.</li>
+  <li>Owner names are never sent to the AI service for a client's question.</li>
+  <li>Questions unrelated to SolarCORE are politely declined.</li>
+</ul>
+
+<h2 id="without-ai">When the AI service is off</h2>
+<p>The assistant keeps working without the AI service: if it is switched off (<code>AI_ENABLED=false</code>), has no key, or cannot be reached. It falls back to built-in rules that recognise the common questions, and the replies are plainer but the figures are the same. See <a href="configuration.html#ai-assistant">Configuration → AI assistant</a>.</p>
+
+<h2 id="limits">Limits</h2>
+<ul>
+  <li>It reads the records; it cannot add, change or delete anything.</li>
+  <li>Lists show a handful of installations at a time. For a full list, use the <span class="ui">Installations</span> page and its filters.</li>
+  <li>It knows only what is in SolarCORE, not, for example, live energy production.</li>
+</ul>
+
+    </article>
+    <nav class="pager" id="pager" aria-label="Previous and next page"></nav>
+    <footer class="page-foot">SolarCORE &middot; College of Information Technology, University of La Salette, Inc. &middot; In partnership with ABS Global Management, Inc.</footer>
+  </main>
+  <aside class="toc" id="toc" aria-label="On this page"></aside>
+</div>
+<script src="assets/js/docs.js"></script>
+</body>
+</html>

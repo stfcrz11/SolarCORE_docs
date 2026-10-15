@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The map · SolarCORE Docs</title>
+<meta name="description" content="Using SolarCORE's dashboard map: tools, basemaps, filters, layers, installation details, proximity search and the public map.">
+<link rel="icon" type="image/png" href="assets/img/logo.png">
+<link rel="stylesheet" href="assets/css/docs.css">
+<script>try{var t=localStorage.getItem("sc-docs-theme");if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+</head>
+<body>
+<header class="topbar">
+  <button type="button" class="icon-btn menu-btn" id="menu-btn" aria-label="Menu" aria-expanded="false" aria-controls="sidebar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+  <a class="brand" href="index.html"><img src="assets/img/logo.png" alt="SolarCORE"><span class="brand__tag">Documentation</span></a>
+  <span class="topbar__spacer"></span>
+  <button type="button" class="icon-btn" id="theme-btn" aria-label="Switch light or dark mode" title="Light / dark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+</header>
+<div class="layout">
+  <nav class="sidebar" id="sidebar" aria-label="Documentation pages"></nav>
+  <main class="content">
+    <article class="doc">
+<p class="eyebrow">Using SolarCORE</p>
+<h1>The map</h1>
+<p class="lead">The dashboard is a map of the installations you are allowed to see: all of them for staff, your own for a client. A summary panel sits on the left, and a column of tools sits beside it.</p>
+
+<h2 id="summary-panel">The summary panel</h2>
+<p>The panel on the left shows:</p>
+<ul>
+  <li><strong>totals:</strong> installations, installed kWp, operational and under construction;</li>
+  <li>a <strong>By type</strong> breakdown, which doubles as the legend for the pin colours;</li>
+  <li>a <strong>By status</strong> breakdown;</li>
+  <li><strong>quick actions</strong>, for staff.</li>
+</ul>
+<p>Collapse it with the arrow on its edge to see more of the map. Clicking a pin opens that installation's details in the same panel; the back arrow returns to the summary.</p>
+
+<h2 id="tools">Map tools</h2>
+<table>
+  <thead><tr><th>Tool</th><th>What it does</th></tr></thead>
+  <tbody>
+    <tr><td><span class="ui">Search</span></td><td>Type at least 3 letters. It finds installations by name, owner, barangay, municipality or address, and places in the Philippines. Pick a result to fly there.</td></tr>
+    <tr><td>Compass (<span class="ui">N</span>)</td><td>Flies to where installations are densest, with north up. Use it to get back after panning away.</td></tr>
+    <tr><td><span class="ui">Basemap</span></td><td><em>Satellite + labels</em>, <em>Satellite</em> or <em>Street</em>.</td></tr>
+    <tr><td><span class="ui">+</span> / <span class="ui">−</span></td><td>Zoom in and out. The mouse wheel and pinch also zoom.</td></tr>
+    <tr><td><span class="ui">Filters</span></td><td>Type and status filters, and for staff the map layers. A dot on the button means a filter is on.</td></tr>
+  </tbody>
+</table>
+
+<h2 id="filters-and-layers">Filters and layers</h2>
+<p>Open <span class="ui">Filters</span>:</p>
+<ul>
+  <li><strong>Type</strong> and <strong>Status</strong> limit which installations are shown. The panel says <em>Showing N of M installations</em>, and so does the button's tooltip. <span class="ui">Reset</span> clears both filters.</li>
+  <li><strong>Map layers</strong> (staff) change how the installations are drawn, not which ones:
+    <table>
+      <thead><tr><th>Layer</th><th>Shows</th></tr></thead>
+      <tbody>
+        <tr><td><span class="ui">Pins</span></td><td>One marker per installation, coloured by type.</td></tr>
+        <tr><td><span class="ui">Cluster</span></td><td>Groups nearby pins into one bubble with a count. Zoom in or click it to split it.</td></tr>
+        <tr><td><span class="ui">Heatmap</span></td><td>Density: where installations are concentrated.</td></tr>
+        <tr><td><span class="ui">Coverage</span></td><td>A circle around each installation. Overlaps show the areas the company already serves.</td></tr>
+      </tbody>
+    </table>
+  </li>
+</ul>
+<p>The layers follow the filters: filter to <em>Hybrid</em> and the heatmap shows only hybrid systems.</p>
+
+<h2 id="installation-details">Installation details</h2>
+<p>Click a pin to open its card: name, owner, address, type, capacity, status, date and photo.</p>
+<ul>
+  <li>Staff see <span class="ui">Edit details</span>, which opens the installation's form.</li>
+  <li>Staff can search for <strong>nearby installations</strong> from the card (below).</li>
+</ul>
+
+<h2 id="proximity">Nearby installations (proximity search)</h2>
+<p>For staff. With an installation's card open:</p>
+<ol class="steps">
+  <li><strong>Choose a radius</strong>: 500 m, 1 km, 2 km (the default), 5 km or 10 km.</li>
+  <li><strong>Click <span class="ui">Find nearby</span></strong>. Installations within that distance are listed nearest first, with their distance, and the search circle is drawn on the map.</li>
+</ol>
+<p>Distances are calculated by PostGIS on the earth's actual shape, not estimated on the flat map. Changing the radius re-runs the search.</p>
+
+<h2 id="adding-from-the-map">Adding an installation from the map</h2>
+<p>Staff can click any empty spot on the map. SolarCORE offers to add an installation there, and opens the form with that point already set. See <a href="guide-technician.html#add-an-installation">Add an installation</a>.</p>
+
+<h2 id="public-map">The public map</h2>
+<p>Visitors who are not signed in can open <span class="ui">Public Map</span> from the home page. It shows <strong>where</strong> the company works, without revealing <strong>who</strong>:</p>
+<ul>
+  <li>only operational installations;</li>
+  <li>drawn as a heatmap of roughly 1 km squares, never an installation's own point;</li>
+  <li>zoom is capped so a square never looks like a particular house;</li>
+  <li>no names, owners or addresses, plus headline totals.</li>
+</ul>
+
+<h2 id="map-area">The map's home area</h2>
+<p>The map opens on the Philippines by default and does not pan far outside the configured area. Administrators of the server can change the starting point and area in <code>config/geo.php</code>; see <a href="configuration.html#map-area">Configuration → Map area</a>.</p>
+<div class="callout">
+  <span class="callout__title">The map needs the internet</span>
+  The map's background images come from Esri and OpenStreetMap. Without a connection, SolarCORE shows a message instead of a blank map. Your installation data still loads, and the list, analytics and form keep working; on the form you can type coordinates instead.
+</div>
+
+    </article>
+    <nav class="pager" id="pager" aria-label="Previous and next page"></nav>
+    <footer class="page-foot">SolarCORE &middot; College of Information Technology, University of La Salette, Inc. &middot; In partnership with ABS Global Management, Inc.</footer>
+  </main>
+  <aside class="toc" id="toc" aria-label="On this page"></aside>
+</div>
+<script src="assets/js/docs.js"></script>
+</body>
+</html>

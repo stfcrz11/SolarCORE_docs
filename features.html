@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Features · SolarCORE Docs</title>
+<meta name="description" content="Everything SolarCORE does: the map, installation records, import and export, analytics, accounts, reports and the AI assistant.">
+<link rel="icon" type="image/png" href="assets/img/logo.png">
+<link rel="stylesheet" href="assets/css/docs.css">
+<script>try{var t=localStorage.getItem("sc-docs-theme");if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+</head>
+<body>
+<header class="topbar">
+  <button type="button" class="icon-btn menu-btn" id="menu-btn" aria-label="Menu" aria-expanded="false" aria-controls="sidebar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+  <a class="brand" href="index.html"><img src="assets/img/logo.png" alt="SolarCORE"><span class="brand__tag">Documentation</span></a>
+  <span class="topbar__spacer"></span>
+  <button type="button" class="icon-btn" id="theme-btn" aria-label="Switch light or dark mode" title="Light / dark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+</header>
+<div class="layout">
+  <nav class="sidebar" id="sidebar" aria-label="Documentation pages"></nav>
+  <main class="content">
+    <article class="doc">
+<p class="eyebrow">Getting started</p>
+<h1>Features</h1>
+<p class="lead">A tour of what SolarCORE does. Each section links to the page that explains it in detail.</p>
+
+<h2>Interactive map</h2>
+<ul>
+  <li>Every installation as a pin, coloured by type: on-grid, off-grid or hybrid.</li>
+  <li>Basemaps: <span class="ui">Satellite + labels</span>, <span class="ui">Satellite</span> and <span class="ui">Street</span>.</li>
+  <li>Layers for staff: <span class="ui">Pins</span>, <span class="ui">Cluster</span> (nearby pins grouped into a counted bubble), <span class="ui">Heatmap</span> (density) and <span class="ui">Coverage</span> (a circle around each site).</li>
+  <li>Filters by type and status, with a "Showing N of M installations" count.</li>
+  <li>Search, zoom, and a compass button that flies to where installations are densest.</li>
+  <li>Click a pin for its details and photos. Staff can click an empty spot to add an installation there.</li>
+  <li><strong>Proximity search:</strong> installations near a given site, from 500 m to 10 km, measured with PostGIS.</li>
+  <li><strong>Public map</strong> for visitors: an anonymous heatmap of operational sites, never exact locations.</li>
+</ul>
+<p>More: <a href="map.html">The map</a>.</p>
+
+<h2>Installation records</h2>
+<ul>
+  <li>Name, owner, address (barangay, municipality, province), coordinates, type, capacity in kWp, installation date, status and notes.</li>
+  <li>Six statuses: Awarded, Under construction, Operational, Under maintenance, Inactive, Decommissioned.</li>
+  <li>Pick the location on a map; the address fields fill in from the point, and anything you type yourself is kept.</li>
+  <li>Photos: JPG, PNG or WebP, up to 5 MB each, stored outside the public web folder.</li>
+  <li>A searchable, sortable list with type, status and date filters.</li>
+</ul>
+<p>More: <a href="guide-technician.html">Technician guide</a>.</p>
+
+<h2>Import and export</h2>
+<ul>
+  <li><strong>CSV import</strong> in three steps: upload, match columns, review. Accepts Excel's "CSV UTF-8", semicolon-separated CSV and common date formats.</li>
+  <li>Each row is checked like the form. Duplicates of existing sites, or of earlier rows in the file, are flagged and skipped unless you choose <span class="ui">Import anyway</span>.</li>
+  <li>An import is all or nothing: if anything fails, nothing is saved.</li>
+  <li><strong>Export</strong> the list, with its current filters, to CSV, GeoJSON (opens in QGIS and other GIS tools) or PDF.</li>
+</ul>
+<p>More: <a href="import-export.html">Import and export</a>.</p>
+
+<h2>Analytics</h2>
+<ul>
+  <li>Totals: installations, installed capacity, operational sites, areas covered.</li>
+  <li>Breakdowns by type, status, municipality and barangay (top 10), and a 12-month trend.</li>
+  <li>The <span class="ui">Export</span> button saves the charts and tables as a PDF.</li>
+  <li>Installed capacity counts only systems that are built, not awarded or under-construction ones.</li>
+</ul>
+<p>More: <a href="analytics.html">Analytics and notifications</a>.</p>
+
+<h2>Accounts and access</h2>
+<ul>
+  <li>Three roles: administrator, technician and client.</li>
+  <li>Sign-in with a password and then a 6-digit code sent by email, or with <span class="ui">Continue with Google</span>.</li>
+  <li>Clients register themselves, and an administrator approves or declines them.</li>
+  <li>Accounts can be deactivated and archived without losing their history.</li>
+  <li>An audit trail of changes, exports and imports, kept for two years.</li>
+  <li>Automatic sign-out after 30 minutes without activity, with a warning first.</li>
+</ul>
+<p>More: <a href="guide-administrator.html">Administrator guide</a>, <a href="security.html">Security</a>.</p>
+
+<h2>Client reports and inquiries</h2>
+<ul>
+  <li>Clients report a problem with one of their installations. Staff update its status (Open, In progress, Resolved) and add notes, and the client can follow up.</li>
+  <li>A maintenance report in progress puts the installation into "Under maintenance" automatically, and restores its status when the work is done.</li>
+  <li>Visitors send inquiries through <span class="ui">Contact Us</span>, which staff track as New, Contacted or Closed.</li>
+  <li>In-app notifications (the bell) and email to the company inbox.</li>
+</ul>
+<p>More: <a href="guide-client.html">Client guide</a>, <a href="guide-technician.html#client-desk">Client Desk</a>.</p>
+
+<h2>AI assistant</h2>
+<ul>
+  <li>Ask in plain language: "How many installations are in Santiago City?", "What is hybrid?"</li>
+  <li>Every figure comes from the database, never from the AI model, which only words the answer.</li>
+  <li>Answers respect the user's role: clients get figures for their own installations only.</li>
+  <li>Still works, with plainer wording, when the AI service is off or unreachable.</li>
+</ul>
+<p>More: <a href="assistant.html">AI assistant</a>.</p>
+
+<h2>Operations</h2>
+<ul>
+  <li>One command creates or updates the database: <code>scripts/migrate.php</code>.</li>
+  <li>Daily backup script for the database and photos, keeping 7 daily and 4 weekly copies.</li>
+  <li>Ready for Docker (Railway) or a regular Linux server.</li>
+  <li>Unit tests with PHPUnit, plus written end-to-end test scenarios.</li>
+</ul>
+<p>More: <a href="deployment.html">Deployment and backups</a>.</p>
+
+    </article>
+    <nav class="pager" id="pager" aria-label="Previous and next page"></nav>
+    <footer class="page-foot">SolarCORE &middot; College of Information Technology, University of La Salette, Inc. &middot; In partnership with ABS Global Management, Inc.</footer>
+  </main>
+  <aside class="toc" id="toc" aria-label="On this page"></aside>
+</div>
+<script src="assets/js/docs.js"></script>
+</body>
+</html>

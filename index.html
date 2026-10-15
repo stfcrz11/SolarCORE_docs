@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SolarCORE Documentation</title>
+<meta name="description" content="SolarCORE is a GIS-based system for tracking solar installations: a map of every site, records, analytics, reports and exports.">
+<link rel="icon" type="image/png" href="assets/img/logo.png">
+<link rel="stylesheet" href="assets/css/docs.css">
+<script>try{var t=localStorage.getItem("sc-docs-theme");if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+</head>
+<body>
+<header class="topbar">
+  <button type="button" class="icon-btn menu-btn" id="menu-btn" aria-label="Menu" aria-expanded="false" aria-controls="sidebar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+  <a class="brand" href="index.html"><img src="assets/img/logo.png" alt="SolarCORE"><span class="brand__tag">Documentation</span></a>
+  <span class="topbar__spacer"></span>
+  <button type="button" class="icon-btn" id="theme-btn" aria-label="Switch light or dark mode" title="Light / dark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+</header>
+<div class="layout">
+  <nav class="sidebar" id="sidebar" aria-label="Documentation pages"></nav>
+  <main class="content">
+    <article class="doc">
+<div class="hero">
+  <img class="hero__logo" src="assets/img/logo.png" alt="SolarCORE">
+  <p class="eyebrow">Documentation</p>
+  <h1>GIS-Based Solar Installation Tracking System</h1>
+  <p class="lead">SolarCORE puts every solar installation a company has built on one interactive map, with its details, photos and status. It turns those records into analytics, reports and exports, and gives clients a place to see their own systems and report problems.</p>
+</div>
+
+<div class="badges">
+  <span class="badge">Web-based, nothing to install for users</span>
+  <span class="badge">PHP 8.2+</span>
+  <span class="badge">PostgreSQL + PostGIS</span>
+  <span class="badge">Leaflet maps</span>
+  <span class="badge">Three roles</span>
+</div>
+
+<div class="cards">
+  <a class="card" href="installation.html">
+    <span class="card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0-4-4m4 4 4-4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg></span>
+    <span class="card__title">Install it</span>
+    <span class="card__text">Set up SolarCORE on a Windows PC with XAMPP, step by step.</span>
+  </a>
+  <a class="card" href="guide-administrator.html">
+    <span class="card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5V5a2 2 0 0 1 2-2h14v16H6.5A2.5 2.5 0 0 0 4 21.5zM8 7h8M8 11h6"/></svg></span>
+    <span class="card__title">User guide</span>
+    <span class="card__text">How administrators, technicians and clients use each page.</span>
+  </a>
+  <a class="card" href="map.html">
+    <span class="card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11a7 7 0 1 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></span>
+    <span class="card__title">The map</span>
+    <span class="card__text">Layers, filters, proximity search and the public map.</span>
+  </a>
+  <a class="card" href="deployment.html">
+    <span class="card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h16"/><circle cx="8" cy="7" r=".6" fill="currentColor"/><circle cx="8" cy="12" r=".6" fill="currentColor"/><circle cx="8" cy="17" r=".6" fill="currentColor"/></svg></span>
+    <span class="card__title">Deploy it</span>
+    <span class="card__text">Put SolarCORE on a server, with backups.</span>
+  </a>
+</div>
+
+<h2 id="what-is-solarcore">What is SolarCORE?</h2>
+<p>Solar installation companies often keep their records in spreadsheets, paper files and chat threads. Answering simple questions then takes real effort: how many systems are installed in a town, how much capacity is running, or which sites are close to a new customer.</p>
+<p>SolarCORE keeps those records in one database with real geographic coordinates. Every installation appears on a map, and the same records drive:</p>
+<ul>
+  <li>the <strong>dashboard</strong>: a map plus a summary of totals by type and status;</li>
+  <li><strong>analytics</strong> by type, status, area and month, exportable to PDF;</li>
+  <li><strong>exports</strong> to CSV, GeoJSON (for GIS software such as QGIS) and PDF;</li>
+  <li><strong>client accounts</strong>, so owners can see their own systems and report problems;</li>
+  <li>an <strong>AI assistant</strong> that answers questions about the records in plain language.</li>
+</ul>
+<p>It was built around the real operations of <strong>ABS Global Management, Inc.</strong>, a solar installation company in Santiago City, Isabela, as a capstone project of the College of Information Technology, University of La Salette, Inc.</p>
+
+<h2 id="who-uses-it">Who uses it</h2>
+<table>
+  <thead><tr><th>Role</th><th>Who</th><th>What they do</th></tr></thead>
+  <tbody>
+    <tr><td><span class="role-pill role-pill--admin">Administrator</span></td><td>Company management</td><td>Everything a technician does, plus user accounts, deleting installations and the audit trail.</td></tr>
+    <tr><td><span class="role-pill role-pill--tech">Technician</span></td><td>Field and office staff</td><td>Add and update installations and photos, import and export records, answer inquiries and client reports.</td></tr>
+    <tr><td><span class="role-pill role-pill--client">Client</span></td><td>Installation owners</td><td>See only their own installations, their figures and the assistant, and report problems.</td></tr>
+  </tbody>
+</table>
+<p>Visitors who are not signed in can open the home page, the <strong>public map</strong> (an anonymous heatmap of where the company works) and the <strong>Contact Us</strong> form.</p>
+
+<h2 id="how-it-works">How it works</h2>
+<ul>
+  <li><strong>One source of truth.</strong> Installations live in PostgreSQL. The PostGIS extension stores each location as a geographic point, so distances and nearby searches are measured, not estimated.</li>
+  <li><strong>A browser is all users need.</strong> SolarCORE is a website. It works on a computer, tablet or phone.</li>
+  <li><strong>Access is decided on the server.</strong> Each page and API checks the user's role. Clients are limited to their own installations in every page, export, photo and assistant answer.</li>
+  <li><strong>Everything important is recorded.</strong> Changes to installations and accounts, exports and imports go into an audit trail.</li>
+</ul>
+
+<h2 id="where-to-start">Where to start</h2>
+<table>
+  <thead><tr><th>I want to…</th><th>Read</th></tr></thead>
+  <tbody>
+    <tr><td>Install SolarCORE on my computer</td><td><a href="installation.html">Installation</a>, then <a href="configuration.html">Configuration</a></td></tr>
+    <tr><td>Learn the pages as an administrator</td><td><a href="guide-administrator.html">Administrator guide</a></td></tr>
+    <tr><td>Add and maintain installations</td><td><a href="guide-technician.html">Technician guide</a></td></tr>
+    <tr><td>Explain the system to a client</td><td><a href="guide-client.html">Client guide</a></td></tr>
+    <tr><td>Bring in records from a spreadsheet</td><td><a href="import-export.html">Import and export</a></td></tr>
+    <tr><td>Put it on a server for real use</td><td><a href="deployment.html">Deployment and backups</a></td></tr>
+    <tr><td>Fix a problem</td><td><a href="troubleshooting.html">Troubleshooting and FAQ</a></td></tr>
+  </tbody>
+</table>
+
+    </article>
+    <nav class="pager" id="pager" aria-label="Previous and next page"></nav>
+    <footer class="page-foot">SolarCORE &middot; College of Information Technology, University of La Salette, Inc. &middot; In partnership with ABS Global Management, Inc.</footer>
+  </main>
+  <aside class="toc" id="toc" aria-label="On this page"></aside>
+</div>
+<script src="assets/js/docs.js"></script>
+</body>
+</html>

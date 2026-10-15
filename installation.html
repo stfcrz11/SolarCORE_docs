@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Installation · SolarCORE Docs</title>
+<meta name="description" content="Install SolarCORE on a Windows computer with XAMPP, PostgreSQL and PostGIS, step by step.">
+<link rel="icon" type="image/png" href="assets/img/logo.png">
+<link rel="stylesheet" href="assets/css/docs.css">
+<script>try{var t=localStorage.getItem("sc-docs-theme");if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+</head>
+<body>
+<header class="topbar">
+  <button type="button" class="icon-btn menu-btn" id="menu-btn" aria-label="Menu" aria-expanded="false" aria-controls="sidebar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+  <a class="brand" href="index.html"><img src="assets/img/logo.png" alt="SolarCORE"><span class="brand__tag">Documentation</span></a>
+  <span class="topbar__spacer"></span>
+  <button type="button" class="icon-btn" id="theme-btn" aria-label="Switch light or dark mode" title="Light / dark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+</header>
+<div class="layout">
+  <nav class="sidebar" id="sidebar" aria-label="Documentation pages"></nav>
+  <main class="content">
+    <article class="doc">
+<p class="eyebrow">Getting started</p>
+<h1>Installation</h1>
+<p class="lead">Set up SolarCORE on a Windows computer with XAMPP, for development, testing or a demonstration. To put it on a server for real use, see <a href="deployment.html">Deployment and backups</a>.</p>
+
+<h2>Requirements</h2>
+<table>
+  <thead><tr><th>Software</th><th>Version</th><th>Notes</th></tr></thead>
+  <tbody>
+    <tr><td>XAMPP (Apache + PHP)</td><td>PHP <strong>8.2</strong> or newer</td><td>Any XAMPP release with PHP 8.2+.</td></tr>
+    <tr><td>PostgreSQL</td><td>14 or newer</td><td>Tested on 16.</td></tr>
+    <tr><td>PostGIS</td><td>3.x</td><td>The spatial extension for PostgreSQL. <strong>Required</strong>: maps, distances and proximity search depend on it.</td></tr>
+    <tr><td>Composer</td><td>2.x</td><td>Installs SolarCORE's PHP libraries.</td></tr>
+    <tr><td>Git</td><td>any</td><td>To download the code. A ZIP of the code also works.</td></tr>
+    <tr><td>A modern browser</td><td>Chrome, Edge, Firefox or Safari</td><td>The map needs an internet connection for its map tiles.</td></tr>
+  </tbody>
+</table>
+<div class="callout">
+  <span class="callout__title">Access to the code</span>
+  The SolarCORE repository is private. Ask the SolarCORE team for access, or for a copy of the code.
+</div>
+
+<h2>1. Install the software</h2>
+<ol class="steps">
+  <li><strong>XAMPP</strong>
+    Download it from <a href="https://www.apachefriends.org/" rel="noopener">apachefriends.org</a>, choosing a version with PHP 8.2 or newer. Install it to the default folder, <code>C:\xampp</code>.</li>
+  <li><strong>PostgreSQL</strong>
+    Download the Windows installer from <a href="https://www.postgresql.org/download/windows/" rel="noopener">postgresql.org</a>. During setup, choose a password for the <code>postgres</code> user and remember it. Keep the default port, <code>5432</code>, unless it is already in use.</li>
+  <li><strong>PostGIS</strong>
+    When PostgreSQL finishes, let it start <strong>Stack Builder</strong>. Pick your PostgreSQL server, then <em>Spatial Extensions → PostGIS</em>, and install it. If you closed Stack Builder, open it from the Start menu.</li>
+  <li><strong>Composer</strong>
+    Download <em>Composer-Setup.exe</em> from <a href="https://getcomposer.org/download/" rel="noopener">getcomposer.org</a>. When it asks for PHP, choose <code>C:\xampp\php\php.exe</code>.</li>
+</ol>
+
+<h2>2. Enable the PHP extensions</h2>
+<p>Open <code>C:\xampp\php\php.ini</code> in a text editor. Find each of these lines and remove the <code>;</code> at the start, so they read:</p>
+<pre data-label="php.ini"><code>extension=curl
+extension=fileinfo
+extension=mbstring
+extension=pdo_pgsql</code></pre>
+<p>Save the file, then <strong>Stop</strong> and <strong>Start</strong> Apache in the XAMPP Control Panel.</p>
+<div class="callout callout--tip">
+  <span class="callout__title">Check it worked</span>
+  In a terminal, <code>C:\xampp\php\php.exe -m</code> should list <code>pdo_pgsql</code>. If you have more than one PHP on your computer, always use XAMPP's (<code>C:\xampp\php\php.exe</code>) for SolarCORE commands.
+</div>
+
+<h2>3. Get the code</h2>
+<p>Put SolarCORE in XAMPP's web folder, then install its libraries:</p>
+<pre data-label="Terminal"><code>cd C:\xampp\htdocs
+git clone &lt;repository URL&gt; solarcore
+cd solarcore
+composer install</code></pre>
+<p>The folder must be named <code>solarcore</code> for the default address to work. To use another name or address, see <a href="configuration.html#where-the-app-is-served">APP_BASE_PATH</a>.</p>
+
+<h2>4. Create the database</h2>
+<p>Open <strong>pgAdmin</strong>, which comes with PostgreSQL, or <code>psql</code>, and create an empty database:</p>
+<pre data-label="SQL"><code>CREATE DATABASE solarcore_db;</code></pre>
+<p>You do not need to create any tables yourself; step 6 does that.</p>
+
+<h2>5. Configure</h2>
+<p>Copy the example settings file:</p>
+<pre data-label="Terminal"><code>copy .env.example .env</code></pre>
+<p>Open <code>.env</code> and fill in the database lines with your PostgreSQL details:</p>
+<pre data-label=".env"><code>DB_HOST=localhost
+DB_PORT=5432
+DB_DATABASE=solarcore_db
+DB_USERNAME=postgres
+DB_PASSWORD=your-postgres-password</code></pre>
+<p>Leave <code>APP_ENV=development</code> for now. Every other setting is explained in <a href="configuration.html">Configuration</a>; the defaults are fine for a first run.</p>
+<div class="callout callout--warn">
+  <span class="callout__title">Keep .env private</span>
+  <code>.env</code> holds passwords and keys. Never share it, upload it, or add it to Git; the project already tells Git to ignore it.
+</div>
+
+<h2>6. Create the tables</h2>
+<pre data-label="Terminal"><code>C:\xampp\php\php.exe scripts\migrate.php</code></pre>
+<p>This runs every database migration in order and stops at the first error. It is safe to run again: on an up-to-date database it changes nothing. Run it again whenever you update the code.</p>
+<p>It lists each file and ends with <code>Done. All migrations applied.</code></p>
+<ul>
+  <li>If it stops with <strong>FAILED</strong> at <code>001_create_extensions.sql</code>, PostGIS is not installed. Go back to step 1, item 3.</li>
+  <li>If it says this PHP <strong>has no pdo_pgsql driver</strong>, see step 2.</li>
+  <li>If it <strong>could not connect</strong>, check the <code>DB_*</code> lines in <code>.env</code> and that PostgreSQL is running.</li>
+</ul>
+
+<h2>7. Open SolarCORE</h2>
+<p>With Apache running in XAMPP, open:</p>
+<pre><code>http://localhost/solarcore/public/</code></pre>
+<p>You should see the SolarCORE home page. Click <span class="ui">Log in</span>.</p>
+
+<h2>8. First sign-in</h2>
+<ol class="steps">
+  <li><strong>Sign in as <code>admin</code></strong>
+    The initial administrator password is shared by the SolarCORE team, not published here.</li>
+  <li><strong>Set your own password and email</strong>
+    SolarCORE asks for a new password (at least 8 characters, different from the initial one) and <strong>your real email address</strong>.</li>
+  <li><strong>Enter the code</strong>
+    A 6-digit code is sent to that address. In <code>APP_ENV=development</code>, if email is not set up yet, the code is shown on the page instead.</li>
+  <li><strong>Done</strong>
+    The dashboard opens. From now on every sign-in is your password, then a code sent to your email.</li>
+</ol>
+
+<h2>9. Next steps</h2>
+<ul>
+  <li>Set up email so codes and notifications are sent: <a href="configuration.html#outgoing-mail">Outgoing mail</a>.</li>
+  <li>Set the map's home area and your company's name: <a href="configuration.html">Configuration</a>.</li>
+  <li>Create staff accounts: <a href="guide-administrator.html#users">Administrator guide → Users</a>.</li>
+  <li>Add installations one by one, or import a spreadsheet: <a href="import-export.html">Import and export</a>.</li>
+</ul>
+
+<h2>Updating SolarCORE</h2>
+<pre data-label="Terminal"><code>cd C:\xampp\htdocs\solarcore
+git pull
+composer install
+C:\xampp\php\php.exe scripts\migrate.php</code></pre>
+
+<h2>Running the tests</h2>
+<p>For developers. Unit tests need no database:</p>
+<pre data-label="Terminal"><code>C:\xampp\php\php.exe vendor\bin\phpunit</code></pre>
+
+    </article>
+    <nav class="pager" id="pager" aria-label="Previous and next page"></nav>
+    <footer class="page-foot">SolarCORE &middot; College of Information Technology, University of La Salette, Inc. &middot; In partnership with ABS Global Management, Inc.</footer>
+  </main>
+  <aside class="toc" id="toc" aria-label="On this page"></aside>
+</div>
+<script src="assets/js/docs.js"></script>
+</body>
+</html>
