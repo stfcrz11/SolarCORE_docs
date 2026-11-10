@@ -29,7 +29,7 @@
   <li>Every installation as a pin, coloured by type: on-grid, off-grid or hybrid.</li>
   <li>Basemaps: <span class="ui">Satellite + labels</span>, <span class="ui">Satellite</span> and <span class="ui">Street</span>.</li>
   <li>Layers for staff: <span class="ui">Pins</span>, <span class="ui">Cluster</span> (nearby pins grouped into a counted bubble), <span class="ui">Heatmap</span> (density) and <span class="ui">Coverage</span> (a circle around each site).</li>
-  <li>Filters by type and status, with a "Showing N of M installations" count.</li>
+  <li>Filters by type, status and date, shared with the installation list, with a "Showing N of M installations" count. When nothing matches, the map says so.</li>
   <li>Search, zoom, and a compass button that flies to where installations are densest.</li>
   <li>Click a pin for its details and photos. Staff can click an empty spot to add an installation there.</li>
   <li><strong>Proximity search:</strong> installations near a given site, from 500 m to 10 km, measured with PostGIS.</li>
@@ -43,7 +43,8 @@
   <li>Six statuses: Awarded, Under construction, Operational, Under maintenance, Inactive, Decommissioned.</li>
   <li>Pick the location on a map; the address fields fill in from the point, and anything you type yourself is kept.</li>
   <li>Photos: JPG, PNG or WebP, up to 5 MB each, stored outside the public web folder.</li>
-  <li>A searchable, sortable list with type, status and date filters.</li>
+  <li>A searchable, sortable list with type, status and date filters. Double-click a row to edit it.</li>
+  <li>Installations are archived, never deleted: administrators can bring an archived record back at any time.</li>
 </ul>
 <p>More: <a href="guide-technician.html">Technician guide</a>.</p>
 
@@ -76,6 +77,14 @@
 </ul>
 <p>More: <a href="guide-administrator.html">Administrator guide</a>, <a href="security.html">Security</a>.</p>
 
+<h2>Help, settings and accessibility</h2>
+<ul>
+  <li>A Help menu on every page opens the user guide for your role; clients can also reread the Terms &amp; Privacy they agreed to.</li>
+  <li>Settings for dark mode, high contrast and text size, plus a built-in screen reader, reduced motion, underlined links and a strong keyboard outline.</li>
+  <li>A short guided walkthrough the first time you open each page.</li>
+</ul>
+<p>More: <a href="help-settings.html">Help and settings</a>.</p>
+
 <h2>Client reports and inquiries</h2>
 <ul>
   <li>Clients report a problem with one of their installations. Staff update its status (Open, In progress, Resolved) and add notes, and the client can follow up.</li>
@@ -85,14 +94,16 @@
 </ul>
 <p>More: <a href="guide-client.html">Client guide</a>, <a href="guide-technician.html#client-desk">Client Desk</a>.</p>
 
-<h2>AI assistant</h2>
+<h2>Sol, the AI assistant</h2>
 <ul>
-  <li>Ask in plain language: "How many installations are in Santiago City?", "What is hybrid?"</li>
-  <li>Every figure comes from the database, never from the AI model, which only words the answer.</li>
-  <li>Answers respect the user's role: clients get figures for their own installations only.</li>
+  <li>Ask in plain language, typos and Filipino included: "How many installations are in Santiago City?", "What is hybrid?", "How do I export the list?"</li>
+  <li>Follow-ups and short replies work: answer "yes" to Sol's offer, or ask "how about Cauayan?".</li>
+  <li>Every figure comes from the database, never from the AI model, which only words the answer, with bullets and bold numbers.</li>
+  <li>Answers respect the user's role: clients get figures for their own installations only. Names are replaced with codes before anything reaches the AI service.</li>
+  <li>Sol never claims to do what it cannot: asked to export or change something, it explains how to do it yourself.</li>
   <li>Still works, with plainer wording, when the AI service is off or unreachable.</li>
 </ul>
-<p>More: <a href="assistant.html">AI assistant</a>.</p>
+<p>More: <a href="assistant.html">Sol, the assistant</a>.</p>
 
 <h2>Operations</h2>
 <ul>

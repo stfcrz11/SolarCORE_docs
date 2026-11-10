@@ -22,7 +22,7 @@
     <article class="doc">
 <p class="eyebrow">User guide</p>
 <h1>Administrator guide</h1>
-<p class="lead">Administrators can do everything a technician can, plus manage user accounts, delete installations and review the audit trail. Read the <a href="guide-technician.html">Technician guide</a> for working with installations; this page covers what is specific to administrators.</p>
+<p class="lead">Administrators can do everything a technician can, plus manage user accounts, archive installations and review the audit trail. Read the <a href="guide-technician.html">Technician guide</a> for working with installations; this page covers what is specific to administrators.</p>
 
 <h2 id="signing-in">Signing in</h2>
 <ol class="steps">
@@ -44,14 +44,15 @@
   <thead><tr><th>Tab</th><th>What is there</th></tr></thead>
   <tbody>
     <tr><td><span class="ui">Dashboard</span></td><td>The map of every installation, with a summary panel. See <a href="map.html">The map</a>.</td></tr>
-    <tr><td><span class="ui">Installations</span></td><td>The list of all installations: search, filter, add, edit, delete, import and export.</td></tr>
+    <tr><td><span class="ui">Installations</span></td><td>The list of all installations: search, filter, add, edit, archive, import and export.</td></tr>
     <tr><td><span class="ui">Analytics</span></td><td>Charts and totals, with PDF export.</td></tr>
     <tr><td><span class="ui">Administration ▾</span></td><td><span class="ui">Users</span>, <span class="ui">Audit Trail</span>, <span class="ui">Inquiries</span> and <span class="ui">Client Reports</span>. A red number shows new inquiries and open reports waiting.</td></tr>
-    <tr><td>Bell</td><td>Notifications: new registrations, client reports, inquiries, and installations added, changed or deleted by others.</td></tr>
-    <tr><td>Your name</td><td>The account menu, with <span class="ui">Log Out</span>.</td></tr>
+    <tr><td>Bell</td><td>Notifications: new registrations, client reports, inquiries, and installations added, changed or archived by others.</td></tr>
+    <tr><td>Your name</td><td>The account menu: <span class="ui">Help</span> (this user guide), <span class="ui">Settings</span> and <span class="ui">Log Out</span>. See <a href="help-settings.html">Help and settings</a>.</td></tr>
+    <tr><td>Sol button</td><td>The assistant, bottom right. See <a href="assistant.html">Sol, the assistant</a>.</td></tr>
   </tbody>
 </table>
-<p>On a tablet or phone, the tabs move into the menu button (☰) at the top left.</p>
+<p>On a tablet or phone, the tabs move into the menu button (☰) at the top left. The <span class="ui">Administration</span> pages are listed there under a small <em>ADMINISTRATION</em> heading, and Help is the <span class="ui">ⓘ</span> button next to the bell.</p>
 
 <h2 id="users">Users</h2>
 <p>Open <span class="ui">Administration</span> → <span class="ui">Users</span>. The page has five sections, listed down the left side:</p>
@@ -69,15 +70,17 @@
 <h3>Create a staff account</h3>
 <ol class="steps">
   <li><strong>Open <span class="ui">Admins and Technicians</span></strong> and start a new staff account.</li>
-  <li><strong>Fill in</strong> first and last name, username, email, a temporary password (at least 8 characters) and the role: Administrator or Technician.</li>
+  <li><strong>Fill in</strong> first and last name, username, email, a temporary password (at least 8 characters) and the role: Administrator or Technician. The staff form offers staff roles only.</li>
   <li><strong>Click <span class="ui">Create account</span></strong>. Give the person their username and temporary password in person or by phone, not in a group chat.</li>
 </ol>
+<p>To create a client account yourself, for a customer you already know, use <span class="ui">+ Add User</span> in the <span class="ui">Clients</span> section instead. Its role is fixed to Client, and the account is active straight away.</p>
+<p>Tip: double-click any account row to edit it.</p>
 
 <h3>Approve or decline a client</h3>
 <p>Clients sign up with <span class="ui">Create account</span> on the sign-in page. Their account cannot sign in until you approve it.</p>
 <ol class="steps">
   <li><strong>Open <span class="ui">Pending Approval</span></strong>. The bell also tells you about new registrations.</li>
-  <li><strong>Approve</strong> a real customer, or <strong>decline</strong> one you do not recognise. Declined registrations can be approved later with <span class="ui">Approve after all</span>, or deleted.</li>
+  <li><strong>Approve</strong> a real customer, or <strong>decline</strong> one you do not recognise. Each one has labelled <span class="ui">Approve</span> and <span class="ui">Decline</span> buttons, and the person is emailed the outcome. Declined registrations can be approved later with <span class="ui">Approve after all</span>, or archived to keep the list short.</li>
   <li><strong>Link their installations.</strong> Edit each installation they own and choose their account as the <span class="ui">Owner</span>. They then see it under <em>My Installations</em> and can report problems.</li>
 </ol>
 
@@ -98,14 +101,19 @@
   <li>archive an account that is still active.</li>
 </ul>
 
-<h2 id="deleting-installations">Deleting installations</h2>
-<p>Only administrators can delete an installation. In <span class="ui">Installations</span>, use the delete icon on its row and confirm. The record disappears from the list, the map, analytics and exports, and the deletion is recorded in the audit trail.</p>
+<h2 id="archiving-installations">Archiving installations</h2>
+<p>Installations are archived, never deleted, and only administrators can archive one. In <span class="ui">Installations</span>, use the archive icon on its row and confirm. The record leaves the list, the map, analytics, exports and Sol's answers, and the change is recorded in the audit trail.</p>
+<ul>
+  <li>The <span class="ui">Active</span> / <span class="ui">Archived</span> switch above the list shows the archived records, with a count.</li>
+  <li>Archived installations cannot be edited. Use <span class="ui">Unarchive</span> on the row to bring one back exactly as it was.</li>
+  <li>For a site that is retired but should stay visible, set its status to <em>Decommissioned</em> instead of archiving it.</li>
+</ul>
 
 <h2 id="audit-trail">Audit Trail</h2>
 <p>Open <span class="ui">Administration</span> → <span class="ui">Audit Trail</span>. It records who did what and when:</p>
 <ul>
   <li>sign-ins, and blocked or failed sign-ins;</li>
-  <li>installations added, changed (with the before and after values) and deleted;</li>
+  <li>installations added, changed (with the before and after values), archived and unarchived;</li>
   <li>user accounts created, changed, approved, declined, deactivated and archived;</li>
   <li>imports and exports (CSV, GeoJSON and PDF);</li>
   <li>client report and inquiry updates.</li>
@@ -123,7 +131,7 @@
     <tr><td>Daily</td><td>Check <span class="ui">Pending Approval</span>, new <span class="ui">Inquiries</span> and open <span class="ui">Client Reports</span>.</td></tr>
     <tr><td>Daily</td><td>Make sure the server's backup ran (<a href="deployment.html#backups">Backups</a>).</td></tr>
     <tr><td>When someone leaves</td><td>Deactivate their account the same day.</td></tr>
-    <tr><td>Monthly</td><td>Look through the audit trail for anything unexpected, such as large exports or deletions.</td></tr>
+    <tr><td>Monthly</td><td>Look through the audit trail for anything unexpected, such as large exports or archived installations.</td></tr>
   </tbody>
 </table>
 

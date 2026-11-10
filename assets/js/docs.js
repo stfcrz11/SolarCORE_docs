@@ -22,7 +22,8 @@ var NAV = [
     ["map.html", "The map"],
     ["import-export.html", "Import and export"],
     ["analytics.html", "Analytics and notifications"],
-    ["assistant.html", "AI assistant"]
+    ["assistant.html", "Sol, the assistant"],
+    ["help-settings.html", "Help and settings"]
   ]},
   { title: "Operations", items: [
     ["deployment.html", "Deployment and backups"],

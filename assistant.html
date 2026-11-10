@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>AI assistant · SolarCORE Docs</title>
-<meta name="description" content="How SolarCORE's AI assistant answers questions about the installation records, what it can and cannot do, and why its figures are reliable.">
+<title>Sol, the assistant · SolarCORE Docs</title>
+<meta name="description" content="How Sol, SolarCORE's assistant, answers questions about the installation records, what it can and cannot do, and why its figures are reliable.">
 <link rel="icon" type="image/png" href="assets/img/logo.png">
 <link rel="stylesheet" href="assets/css/docs.css">
 <script>try{var t=localStorage.getItem("sc-docs-theme");if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
@@ -21,8 +21,17 @@
   <main class="content">
     <article class="doc">
 <p class="eyebrow">Using SolarCORE</p>
-<h1>AI assistant</h1>
-<p class="lead">The SolarCORE Assistant answers questions about the installation records in plain language. Open it with the chat button at the bottom right of any page after signing in.</p>
+<h1>Sol, the assistant</h1>
+<p class="lead">Sol answers questions about the installation records in plain language. After signing in, open it with the round Sol button at the bottom right of any page.</p>
+
+<h2 id="the-chat">The chat window</h2>
+<ul>
+  <li>Sol's replies appear on the left, yours on the right in gold, each with the time it was sent.</li>
+  <li><strong>Quick questions</strong> sit above the message box. Click one to ask it. If they do not all fit, scroll the row sideways: swipe on a phone, or use the mouse wheel (a thin scrollbar appears when you point at the row).</li>
+  <li>The <span class="ui">–</span> button at the top right minimises the window. The conversation stays while you move between pages, until you sign out.</li>
+  <li>Figures come back easy to scan: one per line, with the key number in bold.</li>
+  <li>To hide the Sol button, turn off <span class="ui">Show Sol</span> in <a href="help-settings.html#settings">Settings</a>.</li>
+</ul>
 
 <h2 id="what-to-ask">What you can ask</h2>
 <table>
@@ -31,13 +40,22 @@
     <tr><td>Counts</td><td>"How many installations do we have?" · "How many hybrid systems are in Santiago City?"</td></tr>
     <tr><td>Capacity</td><td>"What is the total capacity?" · "How many kWp are operational in Isabela?"</td></tr>
     <tr><td>Lists</td><td>"Show the installations in Barangay Villasis." · "Which systems are under maintenance?"</td></tr>
-    <tr><td>Overviews</td><td>"Give me a breakdown of our installations." · "How did installations trend this year?"</td></tr>
+    <tr><td>Overviews</td><td>"Give me a status breakdown." · "Which municipality has the biggest total capacity?" · "Are we growing?"</td></tr>
     <tr><td>Nearby sites <span class="role-pill role-pill--tech">Staff</span></td><td>"What is near Dela Cruz Residence?"</td></tr>
+    <tr><td>Accounts <span class="role-pill role-pill--admin">Administrator</span></td><td>"How many accounts are pending approval?" · "How many users do we have?"</td></tr>
+    <tr><td>Reports and inquiries <span class="role-pill role-pill--tech">Staff</span></td><td>"How many client reports are open?" · "Any new inquiries?"</td></tr>
+    <tr><td>How to do something</td><td>"How do I add an installation?" · "How do I export the list?" · "How do I report a problem?"</td></tr>
     <tr><td>Solar terms</td><td>"What does kWp mean?" · "What is the difference between on-grid and hybrid?"</td></tr>
-    <tr><td>About SolarCORE</td><td>"What is SolarCORE?" · "What can you do?"</td></tr>
+    <tr><td>About SolarCORE and solar</td><td>"What is SolarCORE?" · "Is solar a good idea for a small store?"</td></tr>
   </tbody>
 </table>
-<p>When you first open it, suggested questions appear as buttons. The conversation stays while you move between pages, until you sign out.</p>
+<ul>
+  <li><strong>Typos are fine.</strong> "hw mny instllations in isabla" is read as "how many installations in Isabela". Place names are corrected only to places in your own records.</li>
+  <li><strong>Filipino and Taglish work too</strong>, e.g. "Ilan ang off-grid sa Isabela?"</li>
+  <li><strong>Follow-ups work.</strong> Sol remembers the last few exchanges, so "how about Cauayan?" or "only the hybrid ones" continue the previous question.</li>
+  <li><strong>Answer its offers.</strong> Sol often ends with one offer, such as "Want me to break that down by system type?" Reply <em>yes</em>, <em>sure</em>, <em>sige</em> or <em>go ahead</em> to get it, or <em>no thanks</em> to move on.</li>
+  <li><strong>Questions without a ready-made answer</strong> are answered from SolarCORE's reference text and the current figures, and Sol says plainly what those cannot tell. Questions unrelated to SolarCORE or solar energy are politely declined.</li>
+</ul>
 
 <h2 id="how-it-works">Why its numbers can be trusted</h2>
 <p>Language models are good with words and bad with numbers. They can state a wrong figure with confidence. SolarCORE therefore splits the work:</p>
@@ -52,19 +70,29 @@
 <ul>
   <li><strong>Staff</strong> get figures for the whole company.</li>
   <li><strong>Clients</strong> get figures for their own installations only. Their account decides this, not their question, so asking "show me all installations" does not widen it. If a client asks about a place where they have no installations, the answer is that they have none there.</li>
-  <li>Questions about which sites are near each other are answered for staff only.</li>
-  <li>Owner names are never sent to the AI service for a client's question.</li>
-  <li>Questions unrelated to SolarCORE are politely declined.</li>
+  <li>Questions about which sites are near each other are answered for staff only. Account figures are for administrators only.</li>
+  <li>Before anything is sent to the AI service, installation names, people's names, email addresses and phone numbers are replaced with codes such as <code>[S1]</code>, and put back on SolarCORE's own server when the reply returns. Owner names are left out of what the AI words altogether.</li>
+  <li>For follow-ups, the AI service sees your earlier questions and a one-line summary of each answer (counts and filters only), never the earlier replies themselves.</li>
+  <li>Please do not type phone numbers, addresses or other personal details into the chat; Sol does not need them.</li>
 </ul>
 
-<h2 id="without-ai">When the AI service is off</h2>
-<p>The assistant keeps working without the AI service: if it is switched off (<code>AI_ENABLED=false</code>), has no key, or cannot be reached. It falls back to built-in rules that recognise the common questions, and the replies are plainer but the figures are the same. See <a href="configuration.html#ai-assistant">Configuration → AI assistant</a>.</p>
+<h2 id="cannot-do">What Sol cannot do</h2>
+<p>Sol only looks things up and explains them. It cannot export, download, email, print, add, edit, archive or approve anything. Ask it to, and it says so and shows you where to do it yourself:</p>
+<div class="callout callout--tip">
+  <span class="callout__title">Example</span>
+  <strong>You:</strong> csv download<br>
+  <strong>Sol:</strong> I can't make an export for you, but here's how to do it: open the <span class="ui">Installations</span> tab and use the <span class="ui">Export</span> button above the table…
+</div>
+
+<h2 id="without-ai">When the AI service is off or busy</h2>
+<p>Sol keeps working without the AI service: if it is switched off (<code>AI_ENABLED=false</code>), has no key, or cannot be reached. It falls back to built-in answers for the common questions; the wording is plainer but the figures are the same. See <a href="configuration.html#ai-assistant">Configuration → AI assistant</a>.</p>
+<p>On Groq's free tier, the AI service accepts only so much text per minute. If several questions are asked quickly, Sol waits a few seconds and tries again, and if that is not enough it gives the plain answer instead. See <a href="troubleshooting.html#assistant">Troubleshooting</a>.</p>
 
 <h2 id="limits">Limits</h2>
 <ul>
-  <li>It reads the records; it cannot add, change or delete anything.</li>
-  <li>Lists show a handful of installations at a time. For a full list, use the <span class="ui">Installations</span> page and its filters.</li>
+  <li>Lists show up to 8 installations at a time, and say how many there are in total ("showing 8 of 140"). For a full list, use the <span class="ui">Installations</span> page and its filters.</li>
   <li>It knows only what is in SolarCORE, not, for example, live energy production.</li>
+  <li>The figures are always the database's, but the AI's wording around them can occasionally be off, for example in a comparison. When a number matters, check it on the page.</li>
 </ul>
 
     </article>

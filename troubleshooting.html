@@ -81,7 +81,8 @@
 
 <h3>An installation is missing from the map</h3>
 <ul>
-  <li>A filter may be on. A dot on the <span class="ui">Filters</span> button means so; click <span class="ui">Reset</span>.</li>
+  <li>A filter may be on, on the map or the installation list (they share filters). A dot on the <span class="ui">Filters</span> button means so; click <span class="ui">Clear filters</span>. If nothing matches at all, the map says <em>No installations match these filters.</em></li>
+  <li>It may be archived. Administrators can find it under <span class="ui">Installations</span> → <span class="ui">Archived</span> and unarchive it.</li>
   <li>For a client: the installation may not be linked to your account yet.</li>
 </ul>
 
@@ -110,8 +111,15 @@
 
 <h2 id="assistant">The assistant</h2>
 
-<h3>The assistant's answers are short and plain</h3>
-<p>The AI service is off or unreachable, so built-in rules are answering. Check <code>AI_ENABLED</code>, <code>AI_PROVIDER</code>, <code>AI_MODEL</code> and the key (<a href="configuration.html#ai-assistant">AI assistant settings</a>). The figures are correct either way.</p>
+<h3>Sol's answers are short and plain, or a list of figures</h3>
+<p>Built-in answers are being used instead of the AI service. The figures are correct either way. Two common causes:</p>
+<ul>
+  <li><strong>The AI service is off or unreachable.</strong> Check <code>AI_ENABLED</code>, <code>AI_PROVIDER</code>, <code>AI_MODEL</code> and the key (<a href="configuration.html#ai-assistant">AI assistant settings</a>). The server log says why, in lines starting <code>[SolarCORE] chatbot</code>, <code>classify failed</code> or <code>phrase failed</code>.</li>
+  <li><strong>The free tier's per-minute limit was reached</strong> (the log shows <code>HTTP 429</code> and <code>rate_limit_exceeded</code>). Each question uses two AI calls, so a few quick questions can use up Groq's free allowance for that minute. Sol already waits up to 8 seconds and retries once. Wait a minute between bursts of questions, or move to a paid Groq tier.</li>
+</ul>
+
+<h3>Sol doesn't remember the earlier answers</h3>
+<p>Run <code>scripts/migrate.php</code>. Migration <code>012_add_summary_to_chatbot_logs.sql</code> adds the short answer summaries Sol uses for follow-ups; without it, the log shows <code>chat log saved without summary (run migration 012)</code>. Sol keeps working in the meantime.</p>
 
 <h3>It says a place is unknown</h3>
 <p>Only places that appear in the records are recognised. Check the spelling, or ask about the municipality instead of the barangay.</p>
@@ -130,8 +138,11 @@
 <h3>Can SolarCORE be used by another company?</h3>
 <p>Yes. Change <code>ORG_NAME</code>, <code>ORG_SHORT</code> and <code>ORG_ABOUT</code>, and the map area in <code>config/geo.php</code>.</p>
 
-<h3>Is deleted data really gone?</h3>
-<p>A deleted installation disappears from every page and export, and the deletion is recorded in the audit trail. Accounts are deactivated and archived rather than deleted, so their history is kept.</p>
+<h3>What happens when an installation is archived?</h3>
+<p>Installations are archived, never deleted. An archived installation disappears from the list, the map, analytics, exports and Sol's answers, and the change is recorded in the audit trail. An administrator can unarchive it from <span class="ui">Installations</span> → <span class="ui">Archived</span>. Accounts are likewise deactivated and archived rather than deleted, so their history is kept.</p>
+
+<h3>My display settings are gone on another computer</h3>
+<p>Settings such as dark mode and text size are saved in the browser, not the account. Set them again on each device. See <a href="help-settings.html#settings">Settings</a>.</p>
 
     </article>
     <nav class="pager" id="pager" aria-label="Previous and next page"></nav>
