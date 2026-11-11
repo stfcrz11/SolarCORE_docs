@@ -95,7 +95,7 @@
 <p>Latitude and longitude are probably swapped. In the Philippines, latitude is about 5 to 21 and longitude about 116 to 127.</p>
 
 <h3>A photo will not upload</h3>
-<p>Only JPG, PNG and WebP up to 5 MB are accepted. Phone photos in HEIC format must be converted first, or set the phone camera to "Most compatible".</p>
+<p>Only JPG, PNG and WebP are accepted. Phone photos in HEIC format must be converted first, or set the phone camera to "Most compatible". Photos are normally shrunk to WebP in the browser before upload; if that cannot happen (an old browser), each photo must be 5 MB or smaller, or up to 15 MB when the server has PHP's GD extension to shrink it.</p>
 
 <h3>Photos disappeared after a deploy (Railway)</h3>
 <p><code>PHOTO_STORAGE_PATH</code> is not on a volume, so photos were saved inside the container and lost when it was rebuilt. Attach a volume, set <code>PHOTO_STORAGE_PATH</code> to it, and restore the photos from a backup.</p>

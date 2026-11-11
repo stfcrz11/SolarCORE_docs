@@ -60,7 +60,7 @@
       </tbody>
     </table></li>
   <li><strong>Only <code>public/</code> is served.</strong> The settings file, code and project history cannot be downloaded.</li>
-  <li><strong>Uploads</strong> are checked by their real content type (JPG, PNG, WebP only), limited to 5 MB, renamed randomly and stored outside the public folder.</li>
+  <li><strong>Uploads</strong> are checked by their real content type (JPG, PNG, WebP only), limited to 5 MB once stored, renamed randomly and stored outside the public folder. Photos are normally re-encoded to WebP (in the browser, or on the server when GD is installed), which also removes hidden metadata such as the phone's GPS location.</li>
 </ul>
 
 <h2 id="audit">Accountability</h2>
